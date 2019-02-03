@@ -1,6 +1,7 @@
 source "https://rubygems.org"
 
  group :production do
+ 	gem 'rack'
 	gem 'sinatra'
 	gem 'require_all'
 	gem 'pg'

@@ -75,6 +75,7 @@ DEPENDENCIES
   pg
   pry
   pry-remote
+  rack
   rake
   require_all
   shotgun
