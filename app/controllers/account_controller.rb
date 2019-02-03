@@ -2,9 +2,6 @@ require 'date'
 require 'sinatra/flash'
 
 class AccountsController < Sinatra::Base
-	enable :sessions
-  register Sinatra::Flash
-
   configure do
     set :views, "app/views"
     set :public_dir, "public"
