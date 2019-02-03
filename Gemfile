@@ -2,11 +2,11 @@ source "https://rubygems.org"
 
  group :production do
 	gem 'sinatra'
+	gem 'sinatra-activerecord'
+	gem 'sinatra-flash'
 	gem 'require_all'
 	gem 'pg'
 	gem 'rake'
-	gem 'sinatra-activerecord'
-	gem 'sinatra-flash'
  end
 
  group :development do
