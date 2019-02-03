@@ -1,5 +1,5 @@
 source "https://rubygems.org"
-ruby '2.5.3'
+ruby '2.3.7'
 
  group :production do
  	gem 'rack'
