@@ -2,7 +2,7 @@ require 'date'
 require 'sinatra/flash'
 
 class AccountsController < Sinatra::Base
-	enable :sessions
+	# enable :sessions
   register Sinatra::Flash
 
   configure do
@@ -23,7 +23,7 @@ class AccountsController < Sinatra::Base
 		@account.apr = params[:apr]
 
 		if @account.save
-			flash[:alert] = "Account was saved."
+			flash[:notice] = "Account was saved."
 			redirect to("/accounts/#{@account.id}")
 			erb :index
 		else
@@ -48,7 +48,7 @@ class AccountsController < Sinatra::Base
 		@account.apr = params[:apr]
   
 		if @account.save
-			flash[:alert] = "Account was saved."
+			flash[:notice] = "Account was saved."
 			redirect to("/accounts/#{@account.id}")
 			erb :index
 		else
