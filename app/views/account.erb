@@ -1,0 +1,49 @@
+<div>
+	<div class="row">
+		<div class="col">
+			<h4 class="lead">
+				<strong>
+					<% if @current_account %> 
+						<%= @current_account[:account_name] %> -
+						$<%= @current_account[:principal] %>
+					<% end %>
+				</strong>
+			</h4>
+		</div>
+		<div class="col">
+			<i class="fas fa-ellipsis-h" style="font-size: 1rem;" data-toggle="modal" data-target="#editAccountModal"></i>
+		</div>
+	</div>
+</div>
+<thead class="thead">
+	<tr align="center">
+		<th scope="col">Due Date</th>
+		<th scope="col">Payment</th>
+		<th scope="col">Balance</th>
+		<th></th>
+	</tr>
+</thead>
+
+<tbody>
+	<% @current_account.payments.each do |p| %>
+		<tr class="table__row active">
+			<td class="table__month"><%= p.month.strftime('%b - %y') %><br><%= @current_account.due_date %></td>
+			<td>$<span class="table__payment"><%= p.payment %></span></td>
+			<td class="table__balance"><%= p.balance %></td>
+			<td class="icon"><ion-icon class="close__button" name="close"></ion-icon></td>
+		</tr>
+	<% end %>
+
+<!-- 		<tr class="table__row">
+		<td class="table__month">Nov<br>10</td>
+		<td>$<span class="table__payment">800</span></td>
+		<td class="table__balance">$1500<span></td>
+		<td class="icon"><ion-icon name="close"></ion-icon></td>
+	</tr>
+	<tr class="table__row">
+		<td class="table__month">Oct<br>5</td>
+		<td>$<span class="table__payment">800</span></td>
+		<td class="table__balance">$3000</td>
+		<td class="icon"><ion-icon name="close"></ion-icon></td>
+	</tr> -->
+</tbody>

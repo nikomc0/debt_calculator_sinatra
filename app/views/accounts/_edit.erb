@@ -1,0 +1,39 @@
+<div class="modal fade" id="editAccountModal" tabindex="-1" role="dialog" aria-labelledby="editAccountModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>Edit Account</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <% if @current_account %> 
+				<form method="POST" action="/accounts/<%= @current_account.id %>">
+					<input type="hidden" name="_method" value="PATCH">
+		      <div class="modal-body">
+						<div class="container center">
+								<div class="form-group">
+									<label for="accountName" class="col-form-label">Name:</label><br>
+									<input type="text" class="form-control" placeholder="<%= @current_account.account_name %>" name="account_name"><br>
+
+									<label for="accountPrincipal" class="col-form-label">Principal:</label><br>
+									<input type="text" class="form-control" placeholder="<%= @current_account.principal %>" name="principal"><br>
+
+									<label for="accountAPR" class="col-form-label">APR:</label><br>
+									<input type="text" class="form-control" placeholder="<%= @current_account.apr %>" name="apr"><br>
+
+									<label for="accountDueDate" class="col-form-label">Due Date:</label><br>
+									<input type="text" class="form-control" placeholder="<%= @current_account.due_date %>" name="due_date"><br>
+								</div>
+						</div>
+		      </div>
+		      <div class="modal-footer">
+		      	<button type="submit" class="btn btn-danger" name="_method" value="DELETE">DELETE</button>
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		        <button type="submit" class="btn btn-success" value="UPDATE">Save</button>
+		      </div>
+				</form>
+			<% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+<% $accounts.each_with_index do |t, i| %>
+	<li>
+		<a href="/accounts/<%= t.id %>">
+			<%= t.account_name %>
+		</a>
+	</li>
+<% end %>
