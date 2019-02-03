@@ -9,7 +9,7 @@ class ApplicationController < Sinatra::Application
     set :public_dir, "public"
   end
 
-  get '/' do
+  get 'https://safe-wildwood-85428.herokuapp.com/' do
     $total_accounts
     $total_balance
     $total_debt
