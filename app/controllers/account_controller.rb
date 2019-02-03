@@ -61,5 +61,6 @@ class AccountsController < Sinatra::Base
 		@account.delete
 
 		redirect "/"
+		erb :index
 	end
 end
