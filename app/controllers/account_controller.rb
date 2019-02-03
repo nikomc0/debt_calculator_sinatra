@@ -12,6 +12,7 @@ class AccountsController < Sinatra::Base
 
 	get '/accounts' do
 		@accounts = Account.all.to_json
+		erb :accounts
 	end
 
 	post '/accounts' do
@@ -24,6 +25,7 @@ class AccountsController < Sinatra::Base
 		if @account.save
 			flash[:alert] = "Account was saved."
 			redirect to("/accounts/#{@account.id}")
+			erb :index
 		else
 			flash.now[:alert] = "There was an error saving the post. Please try again."
 			render :new

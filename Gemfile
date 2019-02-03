@@ -9,10 +9,10 @@ source "https://rubygems.org"
 	gem 'sinatra-flash'
  end
 
- # group :development do
- #  gem 'shotgun'
-	# gem 'pry'
-	# gem 'pry-remote'
-	# gem 'tux'
-	# gem "byebug", "~> 10.0"
- # end
+ group :development do
+  gem 'shotgun'
+	gem 'pry'
+	gem 'pry-remote'
+	gem 'tux'
+	gem "byebug", "~> 10.0"
+ end
