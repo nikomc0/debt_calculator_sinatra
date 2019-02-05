@@ -12,9 +12,6 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/' do
-    $total_accounts
-    $total_balance
-    $total_debt
     erb :index
   end
 
