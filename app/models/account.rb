@@ -1,4 +1,4 @@
-class Account < ActiveRecord::Base
+class Account < Sinatra::Base
 	has_many :payments
 
 	# TODO:
