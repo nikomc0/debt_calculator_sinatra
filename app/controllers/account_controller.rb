@@ -1,5 +1,5 @@
 require 'date'
-require 'sinatra/flash'
+# require 'sinatra/flash'
 
 class AccountsController < Sinatra::Base
 	# enable :sessions

@@ -1,10 +1,10 @@
 require "sinatra"
 require 'sinatra/activerecord'
-require 'sinatra/flash'
+# require 'sinatra/flash'
 
 class ApplicationController < Sinatra::Base
-  enable :sessions
-  register Sinatra::Flash
+  # enable :sessions
+  # register Sinatra::Flash
   
   configure do
     set :views, "app/views"
