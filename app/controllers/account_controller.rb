@@ -2,8 +2,8 @@ require 'date'
 require 'sinatra/flash'
 
 class AccountsController < Sinatra::Base
-	enable :sessions
-  register Sinatra::Flash
+	# enable :sessions
+ #  register Sinatra::Flash
 
   configure do
     set :views, "app/views"
@@ -23,11 +23,11 @@ class AccountsController < Sinatra::Base
 		@account.apr = params[:apr]
 
 		if @account.save
-			flash[:notice] = "Account was saved."
+			# flash[:notice] = "Account was saved."
 			redirect to("/accounts/#{@account.id}")
 			erb :index
 		else
-			flash.now[:alert] = "There was an error saving the post. Please try again."
+			# flash.now[:alert] = "There was an error saving the post. Please try again."
 			render :new
 		end
 	end
@@ -48,11 +48,11 @@ class AccountsController < Sinatra::Base
 		@account.apr = params[:apr]
   
 		if @account.save
-			flash[:notice] = "Account was saved."
+			# flash[:notice] = "Account was saved."
 			redirect to("/accounts/#{@account.id}")
 			erb :index
 		else
-			flash.now[:alert] = "There was an error saving the post. Please try again."
+			# flash.now[:alert] = "There was an error saving the post. Please try again."
 			render :new
 		end
   end
