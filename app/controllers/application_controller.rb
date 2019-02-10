@@ -12,6 +12,9 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/' do
+    $total_accounts = Account.all.length
+    $accounts = Account.all
+    $total_debt = Account.sum(:principal)
     erb :index
   end
 

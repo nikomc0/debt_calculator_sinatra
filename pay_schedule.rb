@@ -1,4 +1,4 @@
-# require 'date'
+require 'date'
 # # payments = [
 # # 	{ account_id: 1, payment: 400},
 # # 	{ account_id: 1, payment: 400},
@@ -9,15 +9,37 @@
 # # 	{ account_id: 2, payment: 400}
 # # ]
 
-# # Calculates how many months are required to pay down debt amount.
-# apr = 15.94 / 100
-# monthly_interest = apr / 12
-# principal = 5000
-# monthly_payment = 2500
-# month = Date.today
+def num_months(monthly_interest, monthly_payment, principal)
+	data = {
+		monthly_payment: monthly_payment,
+		monthly_interest: monthly_interest,
+		principal: principal,
+		top: nil,
+		bottom: nil
+	}
+	begin
+		num_payments = Math.log(1 - (monthly_interest * principal) / -monthly_payment)
+		
+		## I = PN-A where P=monthly payment, N=number of payments (from above formula), and A=loan amount (principal).
+		total_interest = (monthly_payment * num_payments) - principal
+		puts "Payment: #{num_payments}"
+		puts "Total Interest: #{total_interest}"
+	rescue ArgumentError => e
+		puts e
+		puts data
+	end
+end
 
-# num_months = -Math.log(1 - (monthly_interest * principal) / monthly_payment) / Math.log(1 + monthly_interest)
-# num_months.ceil.times do 
+# Calculates how many months are required to pay down debt amount.
+apr = 15.94 / 100
+monthly_interest = apr / 12
+principal = 5000
+monthly_payment = 500
+month = Date.today
+
+months = num_months(monthly_interest, monthly_payment, principal)
+
+# months.ceil.times do 
 # 	upcoming_month = month.next_month
 # 	month = upcoming_month
 
@@ -33,6 +55,7 @@
 # 	end
 # 	principal = updated_balance
 # end
+
 
 ###################
 # Count the pairs
@@ -53,23 +76,23 @@
 ####################
 # Count the Valleys
 ####################
-n = 8
-s = "UDDDUDUUUUUDDDDDDUUUDUDUUD"
+# n = 8
+# s = "UDDDUDUUUUUDDDDDDUUUDUDUUD"
 
-num = [0,-1,-2,-3,-2,-1,0]
-mark_1 = nil
-mark_2 = nil
-valley = 0
+# num = [0,-1,-2,-3,-2,-1,0]
+# mark_1 = nil
+# mark_2 = nil
+# valley = 0
 
-num.each_with_index do |t, i|
-	if t === 0 && mark_1 != 0 
-		mark_1 = i.to_i 
-	elsif
-		mark_2 = i.to_i
-	end
-end
-num[(mark_1..mark_2)].inject(:+) < 0 ? valley += 1 : mountain
-p valley
+# num.each_with_index do |t, i|
+# 	if t === 0 && mark_1 != 0 
+# 		mark_1 = i.to_i 
+# 	elsif
+# 		mark_2 = i.to_i
+# 	end
+# end
+# num[(mark_1..mark_2)].inject(:+) < 0 ? valley += 1 : mountain
+# p valley
 
 
 # def countingValleys(n, s)
