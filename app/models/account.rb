@@ -5,10 +5,11 @@ class Account < ActiveRecord::Base
 	# 1. Rename to Monthly Budget
 	$monthly_payment = 2500.00
 
-	$total_accounts = Account.all.length
-	$accounts = Account.all
-	$total_debt = Account.sum(:principal)
-
+	def get_global_variables
+		$total_accounts = Account.all.length
+		$accounts = Account.all
+		$total_debt = Account.sum(:principal)
+	end
 
 	def calculate_pay_schedule
 		# Calculates how many months are required to pay down debt amount.

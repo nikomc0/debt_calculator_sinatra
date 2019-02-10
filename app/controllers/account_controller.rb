@@ -24,6 +24,7 @@ class AccountsController < Sinatra::Base
 
 		if @account.save
 			# flash[:notice] = "Account was saved."
+			@account.get_global_variables
 			redirect to("/accounts/#{@account.id}")
 			erb :index
 		else
