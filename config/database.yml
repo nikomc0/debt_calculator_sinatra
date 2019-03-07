@@ -6,6 +6,14 @@ development:
   username: <%= ENV['PG_USER'] %>
   password: <%= ENV['PG_PASS'] %>
 
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: test
+  pool: 2
+  username: <%= ENV['PG_USER'] %>
+  password: <%= ENV['PG_PASS'] %>
+
 production:
   adapter: postgresql
   encoding: unicode

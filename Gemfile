@@ -1,12 +1,22 @@
 source "https://rubygems.org"
 
+gem 'sinatra'
+gem 'sinatra-activerecord'
+gem 'sinatra-flash'
+gem 'rake'
+gem 'require_all'
+
  group :production do
-	gem 'sinatra'
-	gem 'sinatra-activerecord'
-	gem 'sinatra-flash'
-	gem 'require_all'
-	gem 'pg'
-	gem 'rake'
+ 	gem 'pg'
+ end
+
+ group :test do
+	gem "rspec"
+	gem 'guard'
+	gem 'guard-rspec'
+	gem 'coderay'
+	gem 'rack-test'
+	gem 'database_cleaner'
  end
 
  group :development do
