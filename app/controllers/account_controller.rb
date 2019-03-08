@@ -48,23 +48,10 @@ class AccountsController < Sinatra::Base
 
 	patch '/accounts/:id' do
   	@account = Account.find(params[:id])
-  	if !params[:account_name].empty?
-  		@account.account_name = params[:account_name]
-  	end
 
-  	if !params[:principal].empty?
-  		@account.principal = params[:principal]
-  	end
-		
-		if !params[:due_date].empty?
-			@account.due_date = params[:due_date]
-		end
-
-		if !params[:apr].empty?
-			@account.apr = params[:apr]
-		end
-  
-		if @account.save
+ 		changes = params.reject { |k, v| v.blank? || v === "PATCH"}
+ 		
+ 		if @account.update(changes)
 			# flash[:notice] = "Account was saved."
 			"something"
     	@account.get_global_variables
@@ -74,6 +61,36 @@ class AccountsController < Sinatra::Base
 			# flash.now[:alert] = "There was an error saving the post. Please try again."
 			render :new
 		end
+		
+ 		# p @account.update(changes)
+ 		# p @account
+
+  # 	if !params[:account_name].empty?
+  # 		@account.account_name = params[:account_name]
+  # 	end
+
+  # 	if !params[:principal].empty?
+  # 		@account.principal = params[:principal]
+  # 	end
+		
+		# if !params[:due_date].empty?
+		# 	@account.due_date = params[:due_date]
+		# end
+
+		# if !params[:apr].empty?
+		# 	@account.apr = params[:apr]
+		# end
+  
+		# if @account.save
+		# 	# flash[:notice] = "Account was saved."
+		# 	"something"
+  #   	@account.get_global_variables
+		# 	redirect to("/accounts/#{@account.id}")
+		# 	erb :index
+		# else
+		# 	# flash.now[:alert] = "There was an error saving the post. Please try again."
+		# 	render :new
+		# end
   end
 
 	delete '/accounts/:id' do 

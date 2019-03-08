@@ -26,7 +26,7 @@
 
 <tbody>
 	<% @current_account.payments.each do |p| %>
-		<tr class="table__row active">
+		<tr id="<% p.id %>" class="table__row active">
 			<td class="table__month"><%= p.month.strftime('%b - %y') %><br><%= @current_account.due_date %></td>
 			<td>$<span class="table__payment"><%= p.payment %></span></td>
 			<td class="table__balance"><%= p.balance %></td>

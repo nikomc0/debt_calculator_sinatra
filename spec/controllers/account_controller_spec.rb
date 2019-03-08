@@ -80,4 +80,16 @@ RSpec.describe "AccountsController", type: :controller do
 
 		it 'saves the account'
 	end
+
+	describe "User sets payment to paid" do
+		let(:account) {Account.last}
+
+		it 'finds the payment' do 
+			account.calculate_pay_schedule
+			expect(account.payments.first).not_to be_nil
+		end
+
+		it 'sets the payment to paid'
+		it 'updates principal'
+	end
 end
