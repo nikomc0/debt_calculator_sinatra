@@ -14,7 +14,7 @@ class AccountsController < Sinatra::Base
 
 	get '/accounts' do
 		@accounts = Account.all
-		# erb :accounts
+		erb :accounts
 	end
 
 	post '/accounts' do
@@ -48,12 +48,13 @@ class AccountsController < Sinatra::Base
 
 	patch '/accounts/:id' do
   	@account = Account.find(params[:id])
+  	# @payment = @account.payment.find(params[:])
 
  		changes = params.reject { |k, v| v.blank? || v === "PATCH"}
- 		
+
  		if @account.update(changes)
+
 			# flash[:notice] = "Account was saved."
-			"something"
     	@account.get_global_variables
 			redirect to("/accounts/#{@account.id}")
 			erb :index
@@ -61,7 +62,7 @@ class AccountsController < Sinatra::Base
 			# flash.now[:alert] = "There was an error saving the post. Please try again."
 			render :new
 		end
-		
+
  		# p @account.update(changes)
  		# p @account
 
@@ -91,6 +92,20 @@ class AccountsController < Sinatra::Base
 		# 	# flash.now[:alert] = "There was an error saving the post. Please try again."
 		# 	render :new
 		# end
+  end
+
+  patch '/accounts/:account_id/:payment_id' do
+  	#  Finds the Account and its Payment that was clicked.
+  	@account = Account.find(params[:account_id])
+  	@payment = @account.payments.find(params[:payment_id])
+
+  	# Updates the Accounts principal
+  	@account.principal -= @payment.payment
+  	@account.save
+
+  	# Updates the payment
+  	@payment.paid = true
+  	@payment.save
   end
 
 	delete '/accounts/:id' do 

@@ -29,14 +29,10 @@ module RSpecMixin
 end
 
 RSpec.configure do |config|
-  # config.before(:all) do
-  #   DatabaseCleaner.clean
-  # end
-
-  # config.after(:each) do
-  #   DatabaseCleaner.clean
-  # end
-
+  config.before(:suite) do
+    DatabaseCleaner.clean_with(:truncation)
+  end
+  
   config.include RSpecMixin
 
   # rspec-expectations config goes here. You can use an alternate

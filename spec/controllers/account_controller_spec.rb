@@ -14,17 +14,13 @@ RSpec.describe "AccountsController", type: :controller do
 	let(:current_account)  { Account.find(1) }
 
 	describe 'get', :type => :request do
-		before do
-			get '/accounts'
-		end
-
 		it 'instantiates @accounts' do
 			expect(:accounts).not_to be_nil
 		end
 	end
 
 	describe 'POST create' do
-		test_account = { :account_name => "Test Account #{Account.all.length}", :principal => 1000, :apr => 15.94, :due_date => 3 }
+		test_account = { :account_name => "Test Account", :principal => 1000, :apr => 15.94, :due_date => 3 }
 		duplicate = { :account_name => "Chase", :principal => 5000, :apr => 15.94, :due_date => 3 }
 		
 		before do
@@ -67,29 +63,44 @@ RSpec.describe "AccountsController", type: :controller do
 	end
 
 	describe 'PATCH accounts by :id' do
-		let(:old_account) { Account.create(account_name: "Union Bank", principal: 5000, apr: 15.94, due_date: 3) }
+		let!(:old_account) { Account.create(account_name: "Union Bank", principal: 5000, apr: 15.94, due_date: 3) }
 		
 		update_params = {
 			:account_name => "Union",
-			:principal => 2000
+			:principal => 4000
 		}
 
-		it 'finds the account' do
-			expect(Account.find_by(account_name: "#{old_account.account_name}").account_name).to eq("Union Bank")
+		it "finds the account" do
+			old_account = Account.last
+			expect(old_account.account_name).to eq "Union Bank"
 		end
 
-		it 'saves the account'
+		it "updates the account" do 
+			patch "/accounts/#{old_account.id}", update_params
+			old_account.reload
+			expect( old_account.account_name ).to eq "Union"
+		end
 	end
 
 	describe "User sets payment to paid" do
-		let(:account) {Account.last}
+		# let!(:account) { Account.create(account_name: "Personal Bank", principal: 5000, apr: 15.94, due_date: 3) }
+		let(:account) { Account.last}
 
-		it 'finds the payment' do 
-			account.calculate_pay_schedule
-			expect(account.payments.first).not_to be_nil
+		context 'when the payment is clicked' do
+			it 'is not nil' do
+				account.calculate_pay_schedule
+				expect(account.payments.first.payment).not_to be_nil
+			end
+
+			it '#patch updates the principal' do
+				patch "/accounts/#{account.id}/#{account.payments.first.id}"
+				expect(last_response.status).to be(200)
+			end
+
+			it 'sets the payment to paid' do
+				patch "/accounts/#{account.id}/#{account.payments.first.id}"
+				expect(account.payments.first.paid).to eq(true)
+			end
 		end
-
-		it 'sets the payment to paid'
-		it 'updates principal'
 	end
 end

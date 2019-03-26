@@ -1,5 +1,5 @@
-ENV['SINATRA_ENV'] ||= "development"
-# ENV['RACK_ENV'] ||= "development"
+ENV['SINATRA_ENV'] = "test"
+ENV['RACK_ENV'] = "test"
 
 require 'bundler/setup'
 require 'require_all'

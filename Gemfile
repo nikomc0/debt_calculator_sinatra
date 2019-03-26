@@ -11,18 +11,20 @@ gem 'require_all'
  end
 
  group :test do
-	gem "rspec"
+ 	gem 'rspec'	
+ 	gem 'coderay'
 	gem 'guard'
 	gem 'guard-rspec'
-	gem 'coderay'
 	gem 'rack-test'
 	gem 'database_cleaner'
+	gem 'capybara'
+	gem 'fuubar'
  end
 
- group :development do
-  gem 'shotgun'
+ group :test, :development do
+	gem 'shotgun'
 	gem 'pry'
 	gem 'pry-remote'
 	gem 'tux'
-	gem "byebug", "~> 10.0"
+	gem 'byebug', "~> 10.0"
  end

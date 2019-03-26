@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_16_151856) do
+ActiveRecord::Schema.define(version: 2019_03_13_121650) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 2019_01_16_151856) do
     t.datetime "updated_at", null: false
     t.datetime "month"
     t.decimal "balance", precision: 10, scale: 2
+    t.boolean "paid", default: false
   end
 
 end

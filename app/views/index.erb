@@ -36,14 +36,14 @@
 						<div style="background-color:#B8D8E0; color: gray">
 							<span style="font-size: 3rem;"><i class="fas fa-dollar-sign"></i></span><br>
 							<strong>Total Debt</strong></p>
-							<div class="col-md"><p class="lead">$<%= $total_debt %></p></div>
+							<div class="col-md"><p class="lead">$<%= '%.2f' % $total_debt %></p></div>
 						</div>
 					</div>
 				  <div class="col-md"><p class="lead">
 				  	<div style="background-color:#B8D8E0; color: gray">
 					  	<span style="font-size: 3rem;"><i class="fas fa-piggy-bank"></i></span><br>
 					  	<strong>Monthly Payment</strong></p>
-					  	<div id="monthly__payment" class="col-md"><p class="lead">$<%= $monthly_payment %></p></div>
+					  	<div id="monthly__payment" class="col-md"><p class="lead">$<%= '%.2f' % $monthly_payment %></p></div>
 					  </div>
 				  </div>
 				</div>

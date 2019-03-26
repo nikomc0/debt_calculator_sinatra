@@ -22,7 +22,7 @@ class Account < ActiveRecord::Base
 		num_months = -Math.log(1 - (monthly_interest * self.principal) / payment) / Math.log(1 + monthly_interest)
 
 		# Create payment schedule
-		num_months.ceil.times do
+		while updated_balance > 0 do
 			upcoming_month = month.next_month
 			month = upcoming_month
 
