@@ -8,7 +8,7 @@
         </button>
       </div>
       <% if @current_account %> 
-				<form method="POST" action="/accounts/<%= @current_account.id %>">
+      	<form method="POST" action="/accounts/<%= @current_account.id %>">
 					<input type="hidden" name="_method" value="PATCH">
 		      <div class="modal-body">
 						<div class="container center">
@@ -27,12 +27,13 @@
 								</div>
 						</div>
 		      </div>
-		      <div class="modal-footer">
-		      	<button type="button" class="btn btn-danger" name="_method" value="DELETE">DELETE</button>
+		      <button type="submit" class="btn btn-success" value="UPDATE">Save</button>
+		    </form>
+		    <form method="POST" action="/accounts/<%= @current_account.id %>">
+					<input type="hidden" name="_method" value="DELETE">
 		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-		        <button type="submit" class="btn btn-success" value="UPDATE">Save</button>
-		      </div>
-				</form>
+		      	<button type="submit" class="btn btn-danger" name="_method" value="delete">DELETE</button>
+		    </form>
 			<% end %>
     </div>
   </div>
