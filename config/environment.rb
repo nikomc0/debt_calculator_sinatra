@@ -1,3 +1,8 @@
+require 'bundler/setup'
+require 'require_all'
+Bundler.require(:default, ENV['SINATRA_ENV'])
+
+require_all 'app'
 
 configure :development do
 	ENV['SINATRA_ENV'] ||= "development"
@@ -5,11 +10,4 @@ configure :development do
 
 	require 'bundler/setup'
 	Bundler.require(:default, ENV['SINATRA_ENV'])
-
 end
-
-require 'bundler/setup'
-require 'require_all'
-Bundler.require(:default, ENV['SINATRA_ENV'])
-
-require_all 'app'
