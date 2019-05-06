@@ -27,13 +27,19 @@
 								</div>
 						</div>
 		      </div>
-		      <button type="submit" class="btn btn-success" value="UPDATE">Save</button>
-		    </form>
-		    <form method="POST" action="/accounts/<%= @current_account.id %>">
-					<input type="hidden" name="_method" value="DELETE">
-		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-		      	<button type="submit" class="btn btn-danger" name="_method" value="delete">DELETE</button>
-		    </form>
+
+		      <!-- Buttons go here. -->
+		      <div class="modal-footer">
+		      	<!-- Save has to be first so that users hitting enter on the form choose save rather than Delete -->
+				      <button type="submit" class="btn btn-success" value="UPDATE">Save</button>
+				      <!-- Closes the top form with information passing. -->
+				    </form>
+				    <form method="POST" action="/accounts/<%= @current_account.id %>">
+							<input type="hidden" name="_method" value="DELETE">
+				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				      	<button type="submit" class="btn btn-danger" name="_method" value="delete">DELETE</button>
+				    </form>
+				  </div>
 			<% end %>
     </div>
   </div>
