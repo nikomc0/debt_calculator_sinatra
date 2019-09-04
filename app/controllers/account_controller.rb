@@ -8,11 +8,12 @@ class AccountsController < ApplicationController
 	end
 
 	post '/accounts' do
-		@account = Account.new
-		@account.account_name = params[:account_name]
-		@account.principal = params[:principal]
-		@account.due_date = params[:due_date]
-		@account.apr = params[:apr]
+		@account = Account.new({
+			account_name: params[:account_name],
+			principal: 		params[:principal],
+			due_date: 		params[:due_date],
+			apr: 					params[:apr]
+		})
 
 		if Account.exists?(account_name: @account.account_name) 
 			# flash.now[:alert] = "There was an error saving the post. Please try again."

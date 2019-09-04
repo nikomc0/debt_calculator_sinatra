@@ -1,21 +1,14 @@
-class Account < ActiveRecord::Base
-	has_many :payments
-	attr_accessor :account_name, :principal, :due_date, :apr
+module PaymentSchedule
+	# TODO
+	# attr_accessor
 
 	def initialize(args)
-		@account_name = args[:account_name]
-		@principal = args[:principal]
-		@due_date = args[:due_date]
-		@apr = args[:apr]
-	end
-	# TODO:
-	# 1. Rename to Monthly Budget
-	$monthly_payment = 2500.00
-
-	def get_global_variables
-		$total_accounts = Account.all.length
-		$accounts = Account.all
-		$total_debt = Account.sum(:principal)
+		# TODO
+		num_accounts = args[:total_accounts]
+		# TODO needs to be calculated prior to landing here.
+		monthly_interest = args[:monthly_interest]
+		monthly_payment = args[:monthly_payment]
+		month_created = args[:month_created]
 	end
 
 	def calculate_pay_schedule
@@ -44,10 +37,5 @@ class Account < ActiveRecord::Base
 				Payment.create(account_id: self.id, payment: payment, month: upcoming_month, balance: updated_balance)
 			end
 		end
-	end
-
-	def clear_payments
-		self.payments.delete_all
-		self.reload.payments
 	end
 end
