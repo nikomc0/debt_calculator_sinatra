@@ -1,17 +1,7 @@
 require 'date'
-require "sinatra"
-require 'sinatra/activerecord'
-# require 'sinatra/flash'
+require_relative 'application_controller'
 
-class AccountsController < Sinatra::Base
-	# enable :sessions
- #  register Sinatra::Flash
-
-  configure do
-    set :views, "app/views"
-    set :public_dir, "public"
-  end
-
+class AccountsController < ApplicationController
 	get '/accounts' do
 		@accounts = Account.all
 		erb :accounts

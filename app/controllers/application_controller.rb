@@ -1,5 +1,5 @@
 require "sinatra"
-require 'sinatra/activerecord'
+# require 'sinatra/activerecord'
 # require 'sinatra/flash'
 
 class ApplicationController < Sinatra::Base
@@ -11,6 +11,7 @@ class ApplicationController < Sinatra::Base
     set :public_dir, "public"
   end
 
+  # Main Dashboard Info
   get '/' do
     $total_accounts = Account.all.length
     $accounts = Account.all
@@ -18,7 +19,7 @@ class ApplicationController < Sinatra::Base
     erb :index
   end
 
-  get '/info' do
-    erb :index
-  end
+  # get '/info' do
+  #   erb :index
+  # end
 end
