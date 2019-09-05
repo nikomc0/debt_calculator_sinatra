@@ -1,5 +1,6 @@
 require 'date'
 require_relative 'application_controller'
+require_relative '../services/payment_schedule'
 
 class AccountsController < ApplicationController
 	get '/accounts' do
@@ -8,21 +9,23 @@ class AccountsController < ApplicationController
 	end
 
 	post '/accounts' do
-		@account = Account.new({
-			account_name: params[:account_name],
-			principal: 		params[:principal],
-			due_date: 		params[:due_date],
-			apr: 					params[:apr]
-		})
+		@account = Account.new(
+			:account_name => params[:account][:account_name], 
+			:principal => params[:account][:principal],
+			:due_date => params[:account][:due_date], 
+			:apr => params[:account][:apr]
+		)
 
-		if Account.exists?(account_name: @account.account_name) 
+		if Account.exists?(account_name: @account[:account_name]) 
 			# flash.now[:alert] = "There was an error saving the post. Please try again."
 			message = "Account already exists."
+			p message
 			# render :new
 		else
 			@account.save
 			# flash[:notice] = "Account was saved."
-			@account.get_global_variables
+			@account.update_global_variables
+			PaymentSchedule.new(@account).get_schedule
 			redirect to("/accounts/#{@account.id}")
 			erb :index
 		end
@@ -30,7 +33,7 @@ class AccountsController < ApplicationController
 
 	get '/accounts/:id' do
 		@current_account = Account.find(params[:id])
-		@current_account.get_global_variables
+		@current_account.update_global_variables
 		@current_account.clear_payments
 		@current_account.calculate_pay_schedule
 		@current_account.account_name

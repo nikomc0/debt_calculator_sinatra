@@ -1,14 +1,26 @@
-module PaymentSchedule
+class PaymentSchedule
 	# TODO
-	# attr_accessor
+	attr_accessor :account, :account_name, :monthly_interest, :monthly_payment, :month_created
 
-	def initialize(args)
+	def initialize(account)
 		# TODO
-		num_accounts = args[:total_accounts]
-		# TODO needs to be calculated prior to landing here.
-		monthly_interest = args[:monthly_interest]
-		monthly_payment = args[:monthly_payment]
-		month_created = args[:month_created]
+		@account = account
+		@account_name = @account[:account_name]
+	end
+
+	def get_schedule
+		puts "Account is #{@account_name}"
+		puts "Monthly interest is #{monthly_interest(@account)}"
+		puts "Monthly Payment is #{monthly_payment}"
+	end
+
+	def monthly_interest(account)
+		monthly_interest = (@account.apr / 100) / 12
+	end
+
+	def monthly_payment
+		# $monthly_payment refers to the monthly payment the user decides is affordable (aka monthly budget)
+		monthly_payment = $monthly_payment / $total_accounts
 	end
 
 	def calculate_pay_schedule

@@ -1,18 +1,11 @@
 class Account < ActiveRecord::Base
 	has_many :payments
-	attr_accessor :account_name, :principal, :due_date, :apr
 
-	def initialize(args)
-		@account_name = args[:account_name]
-		@principal = args[:principal]
-		@due_date = args[:due_date]
-		@apr = args[:apr]
-	end
 	# TODO:
 	# 1. Rename to Monthly Budget
 	$monthly_payment = 2500.00
 
-	def get_global_variables
+	def update_global_variables
 		$total_accounts = Account.all.length
 		$accounts = Account.all
 		$total_debt = Account.sum(:principal)
@@ -48,6 +41,11 @@ class Account < ActiveRecord::Base
 
 	def clear_payments
 		self.payments.delete_all
+		self.reload.payments
+	end
+
+	def clear_accounts
+		self.accounts.delete_all
 		self.reload.payments
 	end
 end
