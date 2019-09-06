@@ -40,7 +40,8 @@ class Account < ActiveRecord::Base
 	# end
 
 	def clear_payments
-		self.payments.delete_all
+		self.payments.destroy_all
+		ActiveRecord::Base.connection.reset_pk_sequence!('payments')
 		self.reload.payments
 	end
 

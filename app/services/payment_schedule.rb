@@ -9,6 +9,7 @@ class PaymentSchedule
 	end
 
 	def get_schedule
+		@account.clear_payments
 		@account[:monthly_interest] = monthly_interest(@account)
 		@account[:monthly_payment] = monthly_payment
 		@account[:num_months] = num_months(@account)
@@ -30,6 +31,7 @@ class PaymentSchedule
 	end
 
 	def calculate_pay_schedule(account)
+		p "Account ID = #{account.id}"
 		payment = account.monthly_payment
 		month = account.created_at
 		updated_balance = account.principal

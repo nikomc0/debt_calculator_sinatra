@@ -34,7 +34,6 @@ class AccountsController < ApplicationController
 	get '/accounts/:id' do
 		@current_account = Account.find(params[:id])
 		@current_account.update_global_variables
-		@current_account.clear_payments
 		PaymentSchedule.new(@current_account).get_schedule
 		
 		erb :index
@@ -49,7 +48,7 @@ class AccountsController < ApplicationController
  		if @account.update(changes)
 
 			# flash[:notice] = "Account was saved."
-    	@account.get_global_variables
+    	@account.update_global_variables
 			redirect to("/accounts/#{@account.id}")
 			erb :index
 		else
@@ -98,6 +97,7 @@ class AccountsController < ApplicationController
   	@account.save
 
   	# Updates the payment
+  	@payment.account_id = @account.id
   	@payment.paid = true
   	@payment.save
   end
