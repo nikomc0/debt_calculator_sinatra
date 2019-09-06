@@ -4,5 +4,5 @@ require './app/controllers/application_controller'
 
 use Rack::MethodOverride
 
-use AccountsController 
 run ApplicationController
+use AccountsController 

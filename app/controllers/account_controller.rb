@@ -1,37 +1,31 @@
 require 'date'
-require "sinatra"
-require 'sinatra/activerecord'
-# require 'sinatra/flash'
+require_relative 'application_controller'
+require_relative '../services/payment_schedule'
 
-class AccountsController < Sinatra::Base
-	# enable :sessions
- #  register Sinatra::Flash
-
-  configure do
-    set :views, "app/views"
-    set :public_dir, "public"
-  end
-
+class AccountsController < ApplicationController
 	get '/accounts' do
 		@accounts = Account.all
 		erb :accounts
 	end
 
 	post '/accounts' do
-		@account = Account.new
-		@account.account_name = params[:account_name]
-		@account.principal = params[:principal]
-		@account.due_date = params[:due_date]
-		@account.apr = params[:apr]
+		@account = Account.new(
+			:account_name => params[:account][:account_name], 
+			:principal => params[:account][:principal],
+			:due_date => params[:account][:due_date], 
+			:apr => params[:account][:apr]
+		)
 
-		if Account.exists?(account_name: @account.account_name) 
+		if Account.exists?(account_name: @account[:account_name]) 
 			# flash.now[:alert] = "There was an error saving the post. Please try again."
 			message = "Account already exists."
+			p message
 			# render :new
 		else
 			@account.save
 			# flash[:notice] = "Account was saved."
-			@account.get_global_variables
+			@account.update_global_variables
+			PaymentSchedule.new(@account).get_schedule
 			redirect to("/accounts/#{@account.id}")
 			erb :index
 		end
@@ -39,10 +33,10 @@ class AccountsController < Sinatra::Base
 
 	get '/accounts/:id' do
 		@current_account = Account.find(params[:id])
-		@current_account.get_global_variables
+		@current_account.update_global_variables
 		@current_account.clear_payments
-		@current_account.calculate_pay_schedule
-		@current_account.account_name
+		PaymentSchedule.new(@current_account).get_schedule
+		
 		erb :index
 	end
 
