@@ -9,9 +9,11 @@ class PaymentSchedule
 	end
 
 	def get_schedule
-		puts "Account is #{@account_name}"
-		puts "Monthly interest is #{monthly_interest(@account)}"
-		puts "Monthly Payment is #{monthly_payment}"
+		@account[:monthly_interest] = monthly_interest(@account)
+		@account[:monthly_payment] = monthly_payment
+		@account[:num_months] = num_months(@account)
+		calculate_pay_schedule(@account)
+		@account.save
 	end
 
 	def monthly_interest(account)
@@ -23,15 +25,14 @@ class PaymentSchedule
 		monthly_payment = $monthly_payment / $total_accounts
 	end
 
-	def calculate_pay_schedule
-		# Calculates how many months are required to pay down debt amount.
-		num_accounts = $total_accounts
-		monthly_interest = (self.apr / 100) / 12
-		payment = $monthly_payment / num_accounts
-		month = self.created_at
-		updated_balance = self.principal
+	def num_months(account)
+		num_months = -Math.log(1 - (account.monthly_interest * account.principal) / account.monthly_payment) / Math.log(1 + account.monthly_interest)
+	end
 
-		num_months = -Math.log(1 - (monthly_interest * self.principal) / payment) / Math.log(1 + monthly_interest)
+	def calculate_pay_schedule(account)
+		payment = account.monthly_payment
+		month = account.created_at
+		updated_balance = account.principal
 
 		# Create payment schedule
 		while updated_balance > 0 do
@@ -42,11 +43,21 @@ class PaymentSchedule
 				payment = updated_balance
 				updated_balance -= payment
 
-				Payment.create(account_id: self.id, payment: payment, month: upcoming_month, balance: updated_balance)
+				Payment.create(
+					account_id: account.id, 
+					payment: payment, 
+					month: upcoming_month, 
+					balance: updated_balance
+				)
 			else
 				updated_balance -= payment
 
-				Payment.create(account_id: self.id, payment: payment, month: upcoming_month, balance: updated_balance)
+				Payment.create(
+					account_id: account.id, 
+					payment: payment, 
+					month: upcoming_month, 
+					balance: updated_balance
+				)
 			end
 		end
 	end

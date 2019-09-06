@@ -35,8 +35,8 @@ class AccountsController < ApplicationController
 		@current_account = Account.find(params[:id])
 		@current_account.update_global_variables
 		@current_account.clear_payments
-		@current_account.calculate_pay_schedule
-		@current_account.account_name
+		PaymentSchedule.new(@current_account).get_schedule
+		
 		erb :index
 	end
 
