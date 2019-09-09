@@ -97,9 +97,10 @@ class AccountsController < ApplicationController
   	@account.save
 
   	# Updates the payment
-  	@payment.account_id = @account.id
-  	@payment.paid = true
-  	@payment.save
+  	PaidPayment.create(
+  		account_id: @payment.account_id,
+  		payment: @payment.payment
+  	)
   end
 
 	delete '/accounts/:id' do 

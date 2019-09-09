@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_06_131238) do
+ActiveRecord::Schema.define(version: 2019_09_09_134739) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,13 @@ ActiveRecord::Schema.define(version: 2019_09_06_131238) do
     t.decimal "monthly_payment", precision: 10, scale: 2
     t.integer "num_months"
     t.index ["account_id"], name: "index_accounts_on_account_id"
+  end
+
+  create_table "paid_payments", force: :cascade do |t|
+    t.integer "account_id"
+    t.decimal "payment", precision: 10, scale: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "payments", force: :cascade do |t|
