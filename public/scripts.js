@@ -12,23 +12,27 @@ infoButton.addEventListener("click", function(event){
 });
 
 // PATCH METHOD for Payments
-
 var paymentTable = document.querySelectorAll("#table tr");
 var url = window.location.href;
 
 var setListener = function(el){
 	el.addEventListener('click', function(event){
-		fetch(url + "/" + el.id, {
-			headers: {
-				"content-type":"application/json; charset=UTF-8"
-			},
-			payment_id: el.id,
-			method: "PATCH"
-		})
-		.then(data => { 
-			location.reload(true);
-			return data;
-		})
+		
+		var paidConfirmation = confirm("Mark Payment as Paid?");
+
+		if (paidConfirmation) {
+			fetch(url + "/" + el.id, {
+				headers: {
+					"content-type":"application/json; charset=UTF-8"
+				},
+				payment_id: el.id,
+				method: "PATCH"
+			})
+			.then(data => { 
+				location.reload(true);
+				return data;
+			})
+		}
 	});
 	
 }
