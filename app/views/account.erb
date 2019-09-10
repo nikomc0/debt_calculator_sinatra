@@ -10,6 +10,13 @@
 				</strong>
 			</h4>
 		</div>
+		<div id="show_hide_payments">
+			<% if @current_account.paid_payments.count === 0 %>
+				<h6 hidden onclick="showPaidPayments()">show paid</h6>
+			<% else %>
+				<h6 onclick="showPaidPayments()">show paid</h6>				
+			<% end %>
+		</div>
 		<div class="col">
 			<i class="fas fa-ellipsis-h" style="font-size: 1rem;" data-toggle="modal" data-target="#editAccountModal"></i>
 		</div>
@@ -24,9 +31,19 @@
 	</tr>
 </thead>
 
+<tbody id="paid_table" class="d-none paid_payments">
+	<% if @current_account.paid_payments.all %>
+		<% @current_account.paid_payments.each do |p| %>
+			<tr id="<%= p.id %>" class="table__row" style="background-color: #d1d1d1; transform: none;">
+				<td class="table__month"><%= p.month.strftime('%b - %y') %></td>
+				<td>$<span class="table__payment"><%= '%.2f' % p.payment %></span></td>
+			</tr>
+		<% end %>
+	<% end %>
+</tbody>
 <tbody id="table">
 	<% @current_account.payments.each do |p| %>
-		<tr id="<%= p.id %>" class="table__row active">
+		<tr id="<%= p.id %>" class="table__row active payments">
 			<td class="table__month"><%= p.month.strftime('%b - %y') %><br><%= @current_account.due_date %></td>
 			<td>$<span class="table__payment"><%= '%.2f' % p.payment %></span></td>
 			<td class="table__balance"><%= '%.2f' % p.balance %></td>

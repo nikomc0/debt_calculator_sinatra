@@ -40,3 +40,18 @@ var setListener = function(el){
 if (paymentTable[0]) {
 	setListener(paymentTable[0]);
 }
+
+// Show/Hide Paid Payments
+var paidPayments = document.querySelector(".paid_payments");
+var showHideButton = document.querySelector("#show_hide_payments");
+
+var showPaidPayments = function (){
+	showHideButton.innerHTML = "<h6 onclick=\"hidePaidPayments()\">hide paid</h6>"
+	paidPayments.classList.remove("d-none");
+}
+
+var hidePaidPayments = function (){
+	showHideButton.innerHTML = "<h6 onclick=\"showPaidPayments()\">show paid</h6>"
+	paidPayments.classList.add("d-none");
+}
+

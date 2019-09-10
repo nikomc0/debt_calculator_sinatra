@@ -1,5 +1,6 @@
 class Account < ActiveRecord::Base
 	has_many :payments
+	has_many :paid_payments
 
 	# TODO:
 	# 1. Rename to Monthly Budget
