@@ -31,7 +31,6 @@ class PaymentSchedule
 	end
 
 	def calculate_pay_schedule(account)
-		p "Account ID = #{account.id}"
 		payment = account.monthly_payment
 		month = account.created_at
 		updated_balance = account.principal
