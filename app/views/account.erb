@@ -6,6 +6,7 @@
 					<% if @current_account %> 
 						<%= @current_account[:account_name] %> -
 						$<%= @current_account[:principal] %>
+						<%= @current_account.num_months %>
 					<% end %>
 				</strong>
 			</h4>

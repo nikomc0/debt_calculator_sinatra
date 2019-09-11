@@ -27,7 +27,7 @@ class PaymentSchedule
 	end
 
 	def num_months(account)
-		num_months = -Math.log(1 - (account.monthly_interest * account.principal) / account.monthly_payment) / Math.log(1 + account.monthly_interest)
+		p num_months = Math.log(1 - (account.monthly_interest * account.principal) / (-account.monthly_payment)) / Math.log(1 + account.monthly_interest)
 	end
 
 	def calculate_pay_schedule(account)

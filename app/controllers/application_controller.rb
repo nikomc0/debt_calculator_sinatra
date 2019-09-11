@@ -5,7 +5,7 @@ require "sinatra"
 class ApplicationController < Sinatra::Base
   # enable :sessions
   # register Sinatra::Flash
-  
+
   configure do
     set :views, "app/views"
     set :public_dir, "public"

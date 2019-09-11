@@ -34,8 +34,7 @@ class AccountsController < ApplicationController
 	get '/accounts/:id' do
 		@current_account = Account.find(params[:id])
 		@current_account.update_global_variables
-		pp @current_account.paid_payments.all
-		PaymentSchedule.new(@current_account).get_schedule
+		# PaymentSchedule.new(@current_account).get_schedule
 		
 		erb :index
 	end
@@ -103,6 +102,8 @@ class AccountsController < ApplicationController
   		payment: @payment.payment,
   		month: @payment.month
   	)
+
+  	@payment.destroy
   end
 
 	delete '/accounts/:id' do 
