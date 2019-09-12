@@ -1,14 +1,15 @@
 class PaymentSchedule
 	# TODO
-	attr_accessor :account, :account_name, :monthly_interest, :monthly_payment, :month_created
+	attr_accessor :account, :month_created, :month
 
 	def initialize(account)
-		# TODO
 		@account = account
-		@account_name = @account[:account_name]
+		@month_created = account[:created_at]
+		@month = account[:month] || account.paid_payments.last.month
 	end
 
 	def get_schedule
+		p @month
 		@account.clear_payments
 		@account[:monthly_interest] = monthly_interest(@account)
 		@account[:monthly_payment] = monthly_payment
@@ -27,39 +28,44 @@ class PaymentSchedule
 	end
 
 	def num_months(account)
-		p num_months = Math.log(1 - (account.monthly_interest * account.principal) / (-account.monthly_payment)) / Math.log(1 + account.monthly_interest)
+		num_months = Math.log(1 - (account.monthly_interest * account.principal) / (-account.monthly_payment)) / Math.log(1 + account.monthly_interest)
+		num_months.ceil
 	end
 
 	def calculate_pay_schedule(account)
 		payment = account.monthly_payment
-		month = account.created_at
+		month = @month
 		updated_balance = account.principal
 
+		puts "Account created #{@month_created}"
+		puts "Last Payment #{month}"
+		puts @account.paid_payments.last.month
+
 		# Create payment schedule
-		while updated_balance > 0 do
-			upcoming_month = month.next_month
-			month = upcoming_month
+		# while updated_balance > 0 do
+		# 	upcoming_month = month.next_month
+		# 	month = upcoming_month
 
-			if payment >= updated_balance
-				payment = updated_balance
-				updated_balance -= payment
+		# 	if payment >= updated_balance
+		# 		payment = updated_balance
+		# 		updated_balance -= payment
 
-				Payment.create(
-					account_id: account.id, 
-					payment: payment, 
-					month: upcoming_month, 
-					balance: updated_balance
-				)
-			else
-				updated_balance -= payment
+		# 		Payment.create(
+		# 			account_id: account.id, 
+		# 			payment: payment, 
+		# 			month: upcoming_month, 
+		# 			balance: updated_balance
+		# 		)
+		# 	else
+		# 		updated_balance -= payment
 
-				Payment.create(
-					account_id: account.id, 
-					payment: payment, 
-					month: upcoming_month, 
-					balance: updated_balance
-				)
-			end
-		end
+		# 		Payment.create(
+		# 			account_id: account.id, 
+		# 			payment: payment, 
+		# 			month: upcoming_month, 
+		# 			balance: updated_balance
+		# 		)
+		# 	end
+		# end
 	end
 end
