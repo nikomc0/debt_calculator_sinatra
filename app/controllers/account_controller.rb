@@ -4,11 +4,15 @@ require_relative '../services/payment_schedule'
 
 class AccountsController < ApplicationController
 	get '/accounts' do
+		ActiveRecord::Base.logger.level = 1
+		
 		@accounts = Account.all
 		erb :accounts
 	end
 
 	post '/accounts' do
+		ActiveRecord::Base.logger.level = 1
+		
 		@account = Account.new(
 			:account_name => params[:account][:account_name], 
 			:principal => params[:account][:principal],
@@ -32,23 +36,25 @@ class AccountsController < ApplicationController
 	end
 
 	get '/accounts/:id' do
+		ActiveRecord::Base.logger.level = 1
+		
 		@current_account = Account.find(params[:id])
 		@current_account.update_global_variables
-		# PaymentSchedule.new(@current_account).get_schedule
-		
 		erb :index
 	end
 
 	patch '/accounts/:id' do
+		ActiveRecord::Base.logger.level = 1
+  	
   	@account = Account.find(params[:id])
   	# @payment = @account.payment.find(params[:])
 
  		changes = params.reject { |k, v| v.blank? || v === "PATCH"}
 
  		if @account.update(changes)
-
 			# flash[:notice] = "Account was saved."
     	@account.update_global_variables
+    	PaymentSchedule.new(@account).get_schedule
 			redirect to("/accounts/#{@account.id}")
 			erb :index
 		else
@@ -88,6 +94,8 @@ class AccountsController < ApplicationController
   end
 
   patch '/accounts/:account_id/:payment_id' do
+  	ActiveRecord::Base.logger.level = 1
+  	
   	#  Finds the Account and its Payment that was clicked.
   	@account = Account.find(params[:account_id])
   	@payment = @account.payments.find(params[:payment_id])
