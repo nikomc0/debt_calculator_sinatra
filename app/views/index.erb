@@ -19,7 +19,7 @@
 
 	<body>
 		<div class="container-fluid px-0">
-			<div class="jumbotron">
+			<div class="jumbotron text-white-50">
 				<div class="row justify-content-end">
 				<div id="show_info" class="col-5">
 					<div id="personal__info" class="d-none">
@@ -35,21 +35,21 @@
 			  <hr class="my-4">
 			  <div class="row text-center">
 				  <div class="col-md"><p class="lead">
-				  	<div style="background-color:#B8D8E0; color: gray">
+				  	<div id="total_accounts" class="main-dashboard rounded active">
 					  	<span style="font-size: 3rem;"><i class="far fa-credit-card"></i></span><br>
 					  	<strong>Accounts</strong></p>
 							<div class="col-md"><p class="lead"><%= $total_accounts %></p></div>
 						</div>
 				  </div>
 					<div class="col-md"><p class="lead">
-						<div style="background-color:#B8D8E0; color: gray">
+						<div id="total_debt" class="main-dashboard rounded">
 							<span style="font-size: 3rem;"><i class="fas fa-dollar-sign"></i></span><br>
 							<strong>Total Debt</strong></p>
 							<div class="col-md"><p class="lead">$<%= '%.2f' % $total_debt %></p></div>
 						</div>
 					</div>
 				  <div class="col-md"><p class="lead">
-				  	<div style="background-color:#B8D8E0; color: gray">
+				  	<div id="monthly_budget" class="main-dashboard rounded">
 					  	<span style="font-size: 3rem;"><i class="fas fa-piggy-bank"></i></span><br>
 					  	<strong>Monthly Payment</strong></p>
 					  	<div id="monthly__payment" class="col-md"><p class="lead">$<%= '%.2f' % $monthly_payment %></p></div>
@@ -57,13 +57,11 @@
 				  </div>
 				</div>
 			</div>
-			
-	 
 	   </div>
 
-			<div class="container">
-				<div class="row container-fluid">
-					<div class="col-4">
+			<div class="container-fluid text-white-50">
+				<div id="accounts-section" class="row">
+					<div id="account_list" class="col-4">
 						<div class="row">
 							<div class="col middle">
 								<h6 class="mb-0">Accounts</h6>
@@ -84,7 +82,7 @@
 					</div>
 					
 
-					<div class="col-8 table-responsive">
+					<div id="table_section" class="col-8 table-responsive">
 						<table class="table table-hover">
 							<% if @current_account %>
 								<%= erb(:'accounts/_edit') %>
