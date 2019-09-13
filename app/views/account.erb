@@ -1,15 +1,12 @@
 <div>
 	<div class="row">
 		<div class="col">
-			<h4 class="lead">
-				<strong>
-					<% if @current_account %> 
-						<%= @current_account[:account_name] %> -
-						$<%= @current_account[:principal] %>
-						<%= @current_account.num_months %>
-					<% end %>
-				</strong>
-			</h4>
+			<% if @current_account %> 
+				<h4 class="lead">Account Overview</h4>
+				<h6><%= @current_account[:account_name] %></h6>
+				<p>$<%= @current_account[:principal] %></p>
+				<p>Repayment in <%= @current_account.num_months %> months</p>
+			<% end %>
 		</div>
 		<div id="show_hide_payments">
 			<% if @current_account.paid_payments.count === 0 %>
