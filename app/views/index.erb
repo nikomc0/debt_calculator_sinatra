@@ -62,7 +62,7 @@
 
 			<div class="container-fluid">
 				<div id="accounts-section" class="row">
-					<div id="account_list" class="col mx-2">
+					<div id="account_list" class="shadow p-3 mb-5 bg-white rounded col mx-2">
 						<div class="row mt-2 mb-0">
 							<div class="col">
 								<h5 class="mb-0">Accounts</h5>
@@ -85,8 +85,8 @@
 					</div>
 					
 
-					<div id="table_section" class="col-9 table-responsive mx-2">
-						<table class="table table-hover">
+					<div id="table_section" class="col-9 table-responsive mx-2 shadow p-3 mb-5 bg-white rounded">
+						<table class="table table-hover table-striped table-sm">
 							<% if @current_account %>
 								<%= erb(:'accounts/_edit') %>
 								<%= erb(:account) %>
