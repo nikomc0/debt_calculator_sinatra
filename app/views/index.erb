@@ -39,39 +39,41 @@
 				  	<div id="total_accounts" class="main-dashboard rounded active">
 					  	<span style="font-size: 3rem;"><i class="far fa-credit-card"></i></span><br>
 					  	<h4><strong>Accounts</strong></h4></p>
-							<div class="col-md"><p class="lead"><%= $total_accounts %></p></div>
+							<div class="col-md"><h5><%= $total_accounts %></h5></div>
 						</div>
 				  </div>
 					<div class="col-md"><p class="lead">
 						<div id="total_debt" class="main-dashboard rounded">
 							<span style="font-size: 3rem;"><i class="fas fa-dollar-sign"></i></span><br>
 							<h4><strong>Total Debt</strong></h4></p>
-							<div class="col-md"><p class="lead">$<%= '%.2f' % $total_debt %></p></div>
+							<div class="col-md"><h5>$<%= '%.2f' % $total_debt %></h5></div>
 						</div>
 					</div>
 				  <div class="col-md"><p class="lead">
 				  	<div id="monthly_budget" class="main-dashboard rounded">
 					  	<span style="font-size: 3rem;"><i class="fas fa-piggy-bank"></i></span><br>
 					  	<h4><strong>Monthly Budget</strong></h4></p>
-					  	<div id="monthly__payment" class="col-md"><p class="lead">$<%= '%.2f' % $monthly_payment %></p></div>
+					  	<div id="monthly__payment" class="col-md"><h5>$<%= '%.2f' % $monthly_payment %></h5></div>
 					  </div>
 				  </div>
 				</div>
 			</div>
 	   </div>
 
-			<div class="container-fluid text-white-50">
+			<div class="container-fluid">
 				<div id="accounts-section" class="row">
-					<div id="account_list" class="col-4">
-						<div class="row">
-							<div class="col middle">
+					<div id="account_list" class="col mx-2">
+						<div class="row mt-2 mb-0">
+							<div class="col">
 								<h5 class="mb-0">Accounts</h5>
 							</div>
 							<!-- Button trigger modal -->
-							<div class="col">
-								<button id="account" class="btn btn-success btn-sm" style="font-size: .75rem;" data-toggle="modal" data-target="#newAccount">Add Account</button>
+							<div>
+								<h6 id="account" class="m-0 px-4" style="font-size: .75rem;" data-toggle="modal" data-target="#newAccount">Add Account</h6>
 							</div>
 						</div>
+
+						<hr>
 						<% if $accounts %>
 							<%= erb(:accounts) %>
 						<% end %>
@@ -83,7 +85,7 @@
 					</div>
 					
 
-					<div id="table_section" class="col-8 table-responsive">
+					<div id="table_section" class="col-9 table-responsive mx-2">
 						<table class="table table-hover">
 							<% if @current_account %>
 								<%= erb(:'accounts/_edit') %>

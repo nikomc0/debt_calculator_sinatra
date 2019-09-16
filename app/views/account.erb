@@ -1,22 +1,26 @@
 <div>
+	<div class="row mt-2">
+		<div class="col-8">
+			<h5 class="mb-0">Account Overview</h5>
+		</div>
+	</div>
+
+	<hr>
+
 	<div class="row">
-		<div class="col">
+		<div class="col-9">
 			<% if @current_account %> 
-				<h4 class="lead">Account Overview</h4>
-				<h6><%= @current_account[:account_name] %></h6>
-				<p>$<%= @current_account[:principal] %></p>
+				<h6><%= @current_account[:account_name] %></h6><p data-toggle="modal" data-target="#editAccountModal">edit</p>
+				<h4>$<%= @current_account[:principal] %></h4>
 				<p>Repayment in <%= @current_account.num_months %> months</p>
 			<% end %>
 		</div>
-		<div id="show_hide_payments">
+		<div id="show_hide_payments" class="col-2">
 			<% if @current_account.paid_payments.count === 0 %>
 				<h6 hidden onclick="showPaidPayments()">show paid</h6>
 			<% else %>
 				<h6 onclick="showPaidPayments()">show paid</h6>				
 			<% end %>
-		</div>
-		<div class="col">
-			<i class="fas fa-ellipsis-h" style="font-size: 1rem;" data-toggle="modal" data-target="#editAccountModal"></i>
 		</div>
 	</div>
 </div>
