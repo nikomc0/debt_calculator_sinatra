@@ -25,7 +25,11 @@ class AccountsController < ApplicationController
 			@account.save
 			# flash[:notice] = "Account was saved."
 			@account.update_global_variables
-			PaymentSchedule.new(@account).get_schedule
+			
+			Account.where("principal > 0").each do |account|
+				PaymentSchedule.new(account).get_schedule
+			end
+
 			redirect to("/accounts/#{@account.id}")
 			erb :index
 		end
@@ -46,7 +50,11 @@ class AccountsController < ApplicationController
  		if @account.update(changes)
 			# flash[:notice] = "Account was saved."
     	@account.update_global_variables
-    	PaymentSchedule.new(@account).get_schedule
+
+    	Account.where("principal > 0").each do |account|
+				PaymentSchedule.new(account).get_schedule
+			end
+			
 			redirect to("/accounts/#{@account.id}")
 			erb :index
 		else
