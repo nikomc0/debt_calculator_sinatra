@@ -53,36 +53,6 @@ class AccountsController < ApplicationController
 			# flash.now[:alert] = "There was an error saving the post. Please try again."
 			render :new
 		end
-
- 		# p @account.update(changes)
- 		# p @account
-
-  # 	if !params[:account_name].empty?
-  # 		@account.account_name = params[:account_name]
-  # 	end
-
-  # 	if !params[:principal].empty?
-  # 		@account.principal = params[:principal]
-  # 	end
-		
-		# if !params[:due_date].empty?
-		# 	@account.due_date = params[:due_date]
-		# end
-
-		# if !params[:apr].empty?
-		# 	@account.apr = params[:apr]
-		# end
-  
-		# if @account.save
-		# 	# flash[:notice] = "Account was saved."
-		# 	"something"
-  #   	@account.get_global_variables
-		# 	redirect to("/accounts/#{@account.id}")
-		# 	erb :index
-		# else
-		# 	# flash.now[:alert] = "There was an error saving the post. Please try again."
-		# 	render :new
-		# end
   end
 
   patch '/accounts/:account_id/:payment_id' do
@@ -102,6 +72,8 @@ class AccountsController < ApplicationController
   	)
 
   	@payment.destroy
+
+  	redirect "/accounts/#{params[:account_id]}"
   end
 
 	delete '/accounts/:id' do 

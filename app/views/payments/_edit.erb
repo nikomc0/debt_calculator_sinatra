@@ -1,0 +1,21 @@
+<div class="modal fade" id="editPayment" tabindex="-1" role="dialog" aria-labelledby="editPayment" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <form id="markPaid" method="POST" action="">
+        <input type="hidden" name="_method" value="PATCH">
+        <div class="modal-body">
+          <div class="center">
+            <div class="form-group" hidden>
+              <input id="payment_id" type="text" class="form-control" name="payments[id]" hidden><br>
+            </div>
+          </div>
+          <p>Would you like to register a payment?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-success">Pay</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

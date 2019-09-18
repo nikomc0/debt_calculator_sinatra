@@ -49,20 +49,11 @@
 			<td class="table__month"><%= p.month.strftime('%b - %y') %><br><%= @current_account.due_date %></td>
 			<td>$<span class="table__payment"><%= '%.2f' % p.payment %></span></td>
 			<td class="table__balance"><%= '%.2f' % p.balance %></td>
-			<td class="icon"><ion-icon class="close__button" name="close"></ion-icon></td>
+			<!-- <td class="icon"><ion-icon class="close__button" name="close"></ion-icon></td> -->
+			<td><h6 id="edit_payment" style="font-size: .75rem;" data-target="#editPayment" data-payment-id="<%= p.id %>">edit</h6></td>
 		</tr>
 	<% end %>
-
-<!-- 		<tr class="table__row">
-		<td class="table__month">Nov<br>10</td>
-		<td>$<span class="table__payment">800</span></td>
-		<td class="table__balance">$1500<span></td>
-		<td class="icon"><ion-icon name="close"></ion-icon></td>
-	</tr>
-	<tr class="table__row">
-		<td class="table__month">Oct<br>5</td>
-		<td>$<span class="table__payment">800</span></td>
-		<td class="table__balance">$3000</td>
-		<td class="icon"><ion-icon name="close"></ion-icon></td>
-	</tr> -->
 </tbody>
+
+<!-- Modal -->
+<%= erb(:'payments/_edit') %>
