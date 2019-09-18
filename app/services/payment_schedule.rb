@@ -32,7 +32,7 @@ class PaymentSchedule
 
 	def monthly_payment
 		# $monthly_payment refers to the monthly payment the user decides is affordable (aka monthly budget)
-		monthly_payment = $monthly_payment / $total_accounts
+		monthly_payment = $monthly_payment / Account.where("principal > 0").count
 	end
 
 	def num_months(account)
