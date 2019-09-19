@@ -35,7 +35,7 @@ class AccountsController < ApplicationController
 	end
 
 	get '/accounts/:id' do		
-		ActiveRecord::Base.logger.level = 1
+		# ActiveRecord::Base.logger.level = 1
 		@current_account = Account.find(params[:id])
 		@current_account.update_global_variables
 
@@ -62,7 +62,7 @@ class AccountsController < ApplicationController
   end
 
   patch '/accounts/:account_id/:payment_id' do
-  	ActiveRecord::Base.logger.level = 1
+  	# ActiveRecord::Base.logger.level = 1
   	#  Finds the Account and its Payment that was clicked.
   	@account = Account.find(params[:account_id])
   	@payment = @account.payments.find(params[:payment_id])
