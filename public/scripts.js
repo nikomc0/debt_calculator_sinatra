@@ -68,5 +68,9 @@ $(document).ready(function(){
 		modal.find('#markPaid').attr('action', url + "/" + paymentID);
 	})
 
+	$(".alert").delay(2000).slideUp(200, function() {
+		$(this).alert('close');
+	});
+
 });
 

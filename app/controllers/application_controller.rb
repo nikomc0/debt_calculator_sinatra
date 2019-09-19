@@ -1,14 +1,13 @@
 require "sinatra"
-# require 'sinatra/activerecord'
-# require 'sinatra/flash'
+require "sinatra/flash"
 
 class ApplicationController < Sinatra::Base
-  # enable :sessions
-  # register Sinatra::Flash
-
+  
   configure do
     set :views, "app/views"
     set :public_dir, "public"
+    # enable :sessions
+    register Sinatra::Flash
   end
 
   # Main Dashboard Info
@@ -16,6 +15,7 @@ class ApplicationController < Sinatra::Base
     $total_accounts = Account.all.length
     $accounts = Account.all
     $total_debt = Account.sum(:principal)
+    
     erb :index
   end
 
