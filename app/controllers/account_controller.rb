@@ -3,30 +3,29 @@ require_relative 'application_controller'
 require_relative '../services/payment_schedule'
 
 class AccountsController < ApplicationController
-	# configure do
-	# 	enable :sessions
-	# end
 
 	get '/accounts' do
-		@accounts = Account.all
 		erb :accounts
 	end
 
 	post '/accounts' do
+		@user = User.find_by(id: current_user.id)
 		@account = Account.new(
+			:user_id => current_user.id,
 			:account_name => params[:account][:account_name], 
 			:principal => params[:account][:principal],
 			:due_date => params[:account][:due_date], 
 			:apr => params[:account][:apr]
 		)
 
-		if Account.exists?(account_name: @account[:account_name]) 
-			flash.now[:danger] = "There was an error saving the post. Please try again."
-			# render :new
+		if @user.accounts.exists?(account_name: @account[:account_name]) 
+			flash[:danger] = "The Account already exists."
+			
+			erb :index
 		else
 			@account.save
 			flash[:success] = "Account was saved."
-			@account.update_global_variables
+			@account.update_global_variables(current_user)
 			@account.update_payment_schedule
 
 			redirect to("/accounts/#{@account.id}")
@@ -36,8 +35,8 @@ class AccountsController < ApplicationController
 
 	get '/accounts/:id' do		
 		# ActiveRecord::Base.logger.level = 1
-		@current_account = Account.find(params[:id])
-		@current_account.update_global_variables
+		@current_account = current_user.accounts.find(params[:id])
+		@current_account.update_global_variables(current_user)
 
 		erb :index
 	end
@@ -50,7 +49,7 @@ class AccountsController < ApplicationController
 
  		if @account.update(changes)
 			flash[:success] = "Account was saved."
-    	@account.update_global_variables
+    	@account.update_global_variables(current_user)
     	@account.update_payment_schedule
 
 			redirect to("/accounts/#{@account.id}")

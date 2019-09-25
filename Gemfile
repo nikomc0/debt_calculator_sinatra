@@ -1,15 +1,14 @@
 source "https://rubygems.org"
 
-gem 'sinatra'
-gem 'sinatra-activerecord'
-gem 'activerecord', '~> 5.0', :require => 'active_record'
-gem 'sinatra-flash'
-gem 'rake'
-gem 'require_all'
-
- group :production do
  	gem 'pg'
- end
+	gem 'sinatra'
+	gem 'sinatra-activerecord'
+	gem 'activerecord', '~> 5.0', :require => 'active_record'
+	gem 'sinatra-flash'
+	gem 'rake'
+	gem 'require_all'
+	gem 'warden'
+	gem 'bcrypt'
 
  group :test do
  	gem 'rspec'	
