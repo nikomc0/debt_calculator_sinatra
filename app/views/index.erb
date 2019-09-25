@@ -6,9 +6,15 @@
 				<%= erb(:personal_info) %>
 			</div>
 		</div>
+		<% if !warden_handler.authenticated? %>>
+			
+		<% else %>
 			<div class="col-1">
 				<span id="info__button" style="font-size: 1.5rem;"><i class="fas fa-user-cog"></i></span></ion-icon>
+				<a href="/logout"> Logout </a>
 			</div>
+
+		<% end %>
 		</div>
 
 	  <h1 class="display-4">Debt Calculator</h1>
@@ -25,7 +31,9 @@
 				<div id="total_debt" class="main-dashboard rounded">
 					<span style="font-size: 3rem;"><i class="fas fa-dollar-sign"></i></span><br>
 					<h4><strong>Total Debt</strong></h4></p>
+					<% if $total_debt %>
 					<div class="col-md"><h5>$<%= '%.2f' % $total_debt %></h5></div>
+					<% end %> 
 				</div>
 			</div>
 		  <div class="col-md"><p class="lead">

@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 2019_09_23_130432) do
   enable_extension "plpgsql"
 
   create_table "accounts", force: :cascade do |t|
+    t.integer "user_id"
     t.string "account_name"
     t.decimal "principal", precision: 10, scale: 2
     t.decimal "apr", precision: 10, scale: 2

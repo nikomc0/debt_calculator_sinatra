@@ -14,9 +14,9 @@ class ApplicationController < Sinatra::Base
   # Main Dashboard Info
   get '/' do
     check_authentication
-    $total_accounts = Account.all.length
-    $accounts = Account.all
-    $total_debt = Account.sum(:principal)
+    $total_accounts = current_user.accounts.all.length
+    $accounts = current_user.accounts.all
+    $total_debt = current_user.accounts.sum(:principal)
     
     erb :index
   end
@@ -46,9 +46,21 @@ class ApplicationController < Sinatra::Base
     redirect '/'
   end
 
-  # get '/info' do
-  #   erb :index
-  # end
+  post "/users" do
+    @user = User.new(
+      first_name: params['user']['first_name'],
+      last_name: params['user']['last_name'],
+      user_name: params['user']['user_name'],
+      password: params['user']['password']
+    )
+
+    if User.exists?(user_name: @user.user_name)
+      flash[:danger] = "User already exists"
+    else
+      @user.save
+      redirect to("/accounts/#{@account.id}")
+    end
+  end 
 
   use Warden::Manager do |manager|
     manager.default_strategies :password
@@ -84,7 +96,7 @@ class ApplicationController < Sinatra::Base
   end
 
   def current_user
-    pp warden_handler.user
+    warden_handler.user
   end
 
   def check_authentication

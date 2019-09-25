@@ -1,14 +1,15 @@
-<% $accounts.each_with_index do |t, i| %>
-	<li>
-		<a href="/accounts/<%= t.id %>">
-			<div class="row">
-				<div class="col">
-					<%= t.account_name %>
+
+	<% $accounts.each_with_index do |t, i| %>
+		<li>
+			<a href="/accounts/<%= t.id %>">
+				<div class="row">
+					<div class="col">
+						<%= t.account_name %>
+					</div>
+					<div class="col right text-right">
+						$<%= sprintf "%.2f", t.principal %>
+					</div>
 				</div>
-				<div class="col right text-right">
-					$<%= sprintf "%.2f", t.principal %>
-				</div>
-			</div>
-		</a>
-	</li>
-<% end %>
+			</a>
+		</li>
+	<% end %>

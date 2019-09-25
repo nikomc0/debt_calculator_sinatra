@@ -1,4 +1,5 @@
 class Account < ActiveRecord::Base
+	belongs_to :user
 	has_many :payments
 	has_many :paid_payments
 
@@ -6,10 +7,10 @@ class Account < ActiveRecord::Base
 	# 1. Rename to Monthly Budget
 	$monthly_payment = 2500.00
 
-	def update_global_variables
-		$total_accounts = Account.all.length
-		$accounts = Account.all
-		$total_debt = Account.sum(:principal)
+	def update_global_variables(user)
+		$total_accounts = user.accounts.all.length
+		$accounts = user.accounts.all
+		$total_debt = user.accounts.sum(:principal)
 	end
 
 	def update_payment_schedule
