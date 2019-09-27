@@ -3,19 +3,17 @@ class Account < ActiveRecord::Base
 	has_many :payments
 	has_many :paid_payments
 
-	# TODO:
-	# 1. Rename to Monthly Budget
-	$monthly_payment = 2500.00
-
 	def update_global_variables(user)
 		$total_accounts = user.accounts.all.length
 		$accounts = user.accounts.all
 		$total_debt = user.accounts.sum(:principal)
+		$monthly_budget = user.monthly_budget
 	end
 
-	def update_payment_schedule
+	def update_payment_schedule(user)
+		monthly_budget = user.monthly_budget
 		Account.where("principal > 0").each do |account|
-			PaymentSchedule.new(account).get_schedule
+			PaymentSchedule.new(account, monthly_budget).get_schedule
 		end
 	end
 

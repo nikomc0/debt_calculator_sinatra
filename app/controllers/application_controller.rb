@@ -10,14 +10,14 @@ class ApplicationController < Sinatra::Base
     register Sinatra::Flash
   end
 
-
   # Main Dashboard Info
   get '/' do
     check_authentication
     $total_accounts = current_user.accounts.all.length
     $accounts = current_user.accounts.all
     $total_debt = current_user.accounts.sum(:principal)
-    
+    $monthly_budget = current_user.monthly_budget
+
     erb :index
   end
 
@@ -46,22 +46,6 @@ class ApplicationController < Sinatra::Base
     redirect '/'
   end
 
-  post "/users" do
-    @user = User.new(
-      first_name: params['user']['first_name'],
-      last_name: params['user']['last_name'],
-      user_name: params['user']['user_name'],
-      password: params['user']['password']
-    )
-
-    if User.exists?(user_name: @user.user_name)
-      flash[:danger] = "User already exists"
-    else
-      @user.save
-      redirect to("/accounts/#{@account.id}")
-    end
-  end 
-
   use Warden::Manager do |manager|
     manager.default_strategies :password
     manager.failure_app = ApplicationController
@@ -76,7 +60,6 @@ class ApplicationController < Sinatra::Base
 
   Warden::Strategies.add(:password) do
     def valid?
-      pp params['user_name']
       params['user_name'] && params['password']
     end
 
@@ -100,7 +83,6 @@ class ApplicationController < Sinatra::Base
   end
 
   def check_authentication
-    # warden_handler.authenticated?
     redirect '/login' unless warden_handler.authenticated?
   end
 end

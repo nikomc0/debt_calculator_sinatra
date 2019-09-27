@@ -11,6 +11,7 @@
 		<% else %>
 			<div class="col-1">
 				<span id="info__button" style="font-size: 1.5rem;"><i class="fas fa-user-cog"></i></span></ion-icon>
+				<p><%= current_user.user_name %></p>
 				<a href="/logout"> Logout </a>
 			</div>
 
@@ -40,7 +41,7 @@
 		  	<div id="monthly_budget" class="main-dashboard rounded">
 			  	<span style="font-size: 3rem;"><i class="fas fa-piggy-bank"></i></span><br>
 			  	<h4><strong>Monthly Budget</strong></h4></p>
-			  	<div id="monthly__payment" class="col-md"><h5>$<%= '%.2f' % $monthly_payment %></h5></div>
+			  	<div id="monthly__payment" class="col-md"><h5>$<%= '%.2f' % $monthly_budget %></h5></div>
 			  </div>
 		  </div>
 		</div>

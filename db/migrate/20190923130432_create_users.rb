@@ -4,6 +4,7 @@ class CreateUsers < ActiveRecord::Migration[6.0]
   		t.string :first_name, null: false
   		t.string :last_name, null: false
   		t.string :user_name, null: false
+      t.decimal :monthly_budget, precision: 10, scale: 2
   		t.string :password_hash, null: false
   		t.boolean :user, :default => true
   		t.timestamps null: false
