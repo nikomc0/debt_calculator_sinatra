@@ -1,0 +1,25 @@
+<div class="container">
+	<h1>Create an account</h1>
+	<form method="POST" action="/user">
+		<div class="form-group">
+			<label for="firstName">First Name</label><br>
+			<input type="text" class="form-control" name="user[first_name]"><br>
+			
+			<label for="lastName">last Name</label><br>
+			<input type="text" class="form-control" name="user[last_name]"><br>
+
+			<label for="userName">User Name</label><br>
+			<input type="text" class="form-control" name="user[user_name]"><br>
+
+			<label for="monthlyBudget">Monthly Budget</label><br>
+			<input type="text" class="form-control" name="user[monthly_budget]"><br>
+
+			<label for="userPassword">Password</label><br>
+			<input type="text" class="form-control" name="user[password]"><br>
+		</div>
+
+		<div class="form-group">
+			<input type="submit" class="btn btn-success" value="Create">
+		</div>
+	</form>
+</div>

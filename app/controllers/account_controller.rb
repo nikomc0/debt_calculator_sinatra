@@ -26,7 +26,7 @@ class AccountsController < ApplicationController
 			@account.save
 			flash[:success] = "Account was saved."
 			@account.update_global_variables(current_user)
-			@account.update_payment_schedule
+			@account.update_payment_schedule(current_user)
 
 			redirect to("/accounts/#{@account.id}")
 			erb :index
@@ -43,19 +43,18 @@ class AccountsController < ApplicationController
 
 	patch '/accounts/:id' do
   	@account = Account.find(params[:id])
-  	# @payment = @account.payment.find(params[:])
 
  		changes = params.reject { |k, v| v.blank? || v === "PATCH"}
 
  		if @account.update(changes)
 			flash[:success] = "Account was saved."
     	@account.update_global_variables(current_user)
-    	@account.update_payment_schedule
+    	@account.update_payment_schedule(current_user)
 
 			redirect to("/accounts/#{@account.id}")
 			erb :index
 		else
-			# flash.now[:alert] = "There was an error saving the post. Please try again."
+			flash[:alert] = "There was an error saving the changes. Please try again."
 			render :new
 		end
   end

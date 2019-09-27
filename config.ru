@@ -1,5 +1,6 @@
 require './config/environment'
 require './app/controllers/account_controller'
+require './app/controllers/user_controller'
 require './app/controllers/application_controller'
 
 	use Rack::MethodOverride
@@ -8,4 +9,5 @@ require './app/controllers/application_controller'
     	                       :secret => 'supersupe'
 
 use AccountsController 
+use UsersController
 run ApplicationController

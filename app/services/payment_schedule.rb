@@ -1,10 +1,11 @@
 class PaymentSchedule
 	# TODO
-	attr_accessor :account, :month_created, :month
+	attr_accessor :account, :month_created, :month, :monthly_budget
 
-	def initialize(account)
+	def initialize(account, monthly_budget)
 		@account = account
 		@month_created = account[:created_at]
+		@monthly_budget = monthly_budget
 		post_initialize(@account)
 	end
 
@@ -31,8 +32,11 @@ class PaymentSchedule
 	end
 
 	def monthly_payment
-		# $monthly_payment refers to the monthly payment the user decides is affordable (aka monthly budget)
-		monthly_payment = $monthly_payment / Account.where("principal > 0").count
+		puts "Monthly Budget = #{@monthly_budget}"
+		# $monthly_budget refers to the monthly payment the user decides is affordable (aka monthly budget)
+		accounts_with_balances = Account.where("principal > 0").count
+
+		monthly_payment = @monthly_budget / accounts_with_balances
 	end
 
 	def num_months(account)
