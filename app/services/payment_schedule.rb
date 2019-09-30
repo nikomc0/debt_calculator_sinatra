@@ -32,9 +32,7 @@ class PaymentSchedule
 	end
 
 	def monthly_payment
-		puts "Monthly Budget = #{@monthly_budget}"
-		# $monthly_budget refers to the monthly payment the user decides is affordable (aka monthly budget)
-		accounts_with_balances = Account.where("principal > 0").count
+		accounts_with_balances = Account.where("user_id = #{@account.user_id} AND principal > 0").count
 
 		monthly_payment = @monthly_budget / accounts_with_balances
 	end

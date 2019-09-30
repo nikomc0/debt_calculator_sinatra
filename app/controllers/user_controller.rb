@@ -16,10 +16,15 @@ class UsersController < ApplicationController
 		if User.exists?(user_name: @user[:user_name])
 			flash[:danger] = "User with #{@user[:user_name]} already exists"
 
-			erb :create_account
+			redirect "/login"
 		else
 			@user.save
+
+			# Creates Session and automatically logs the user into the platform.
+			warden_handler.set_user(@user)
 			flash[:success] = "Your account has been created."
+
+			redirect "/"
 		end
 	end
 end

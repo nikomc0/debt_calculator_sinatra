@@ -41,7 +41,9 @@
 		  	<div id="monthly_budget" class="main-dashboard rounded">
 			  	<span style="font-size: 3rem;"><i class="fas fa-piggy-bank"></i></span><br>
 			  	<h4><strong>Monthly Budget</strong></h4></p>
+			  	<% if $monthly_budget %>
 			  	<div id="monthly__payment" class="col-md"><h5>$<%= '%.2f' % $monthly_budget %></h5></div>
+			  	<% end %>
 			  </div>
 		  </div>
 		</div>

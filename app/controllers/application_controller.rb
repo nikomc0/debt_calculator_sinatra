@@ -28,9 +28,8 @@ class ApplicationController < Sinatra::Base
   post "/session" do
     warden_handler.authenticate!
 
-    flash[:success] = "Successfully logged in"
-
     if warden_handler.authenticated?
+      flash[:success] = "Successfully logged in"
       redirect "/" 
     else
       redirect "/login"
@@ -43,7 +42,8 @@ class ApplicationController < Sinatra::Base
   end
 
   post "/unauthenticated" do
-    redirect '/'
+    flash[:danger] = warden_handler.message unless warden_handler.message.blank?
+    redirect '/login'
   end
 
   use Warden::Manager do |manager|
@@ -69,7 +69,7 @@ class ApplicationController < Sinatra::Base
       if user && user.authenticate(params["password"])
         success!(user)
       else
-        fail!("Could not log in")
+        fail!("Username or Password incorrect.")
       end
     end
   end
@@ -84,5 +84,9 @@ class ApplicationController < Sinatra::Base
 
   def check_authentication
     redirect '/login' unless warden_handler.authenticated?
+  end
+
+  def unauthenticated 
+    flash[:danger] = warden_handler.message unless warden_handler.message.blank?
   end
 end
