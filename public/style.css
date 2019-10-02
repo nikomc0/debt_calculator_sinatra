@@ -120,3 +120,8 @@ hr {
 #total_debt {
 	background-color: #a833b0;
 }
+
+[contenteditable="true"]:focus::before{
+	background: #fff !important;
+	font-size: 200px;
+}

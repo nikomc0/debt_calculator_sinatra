@@ -27,4 +27,15 @@ class UsersController < ApplicationController
 			redirect "/"
 		end
 	end
+
+	patch "/user/:monthly_budget" do
+		@user = User.find_by(id: current_user.id)
+		# @account = Account.find(params[:account_id])
+
+		@user.monthly_budget = params[:monthly_budget]
+		@user.save
+
+		# @account.update_global_variables(@user)
+  #   @account.update_payment_schedule(current_user)
+	end
 end

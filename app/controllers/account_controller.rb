@@ -3,13 +3,32 @@ require_relative 'application_controller'
 require_relative '../services/payment_schedule'
 
 class AccountsController < ApplicationController
+	set :show_exceptions, false
+
+	helpers do
+		def current_account
+			@current_account ||= current_user.accounts.find(params[:id]) || halt(404)
+		end
+
+		def user
+			@user ||= User.find_by(id: current_user.id) || halt(404)
+		end
+
+		def account
+	  	@account ||= Account.find(params[:account_id]) || halt(404)
+	  end
+
+	  def payment
+  		@payment ||= account.payments.find(params[:payment_id]) || halt(404)
+  	end
+	end
 
 	get '/accounts' do
 		erb :accounts
 	end
 
 	post '/accounts' do
-		@user = User.find_by(id: current_user.id)
+		user
 		@account = Account.new(
 			:user_id => current_user.id,
 			:account_name => params[:account][:account_name], 
@@ -18,7 +37,7 @@ class AccountsController < ApplicationController
 			:apr => params[:account][:apr]
 		)
 
-		if @user.accounts.exists?(account_name: @account[:account_name]) 
+		if user.accounts.exists?(account_name: @account[:account_name]) 
 			flash[:danger] = "The Account already exists."
 			
 			erb :index
@@ -35,10 +54,14 @@ class AccountsController < ApplicationController
 
 	get '/accounts/:id' do		
 		# ActiveRecord::Base.logger.level = 1
-		@current_account = current_user.accounts.find(params[:id])
-		@current_account.update_global_variables(current_user)
+
+		current_account
+		current_account.update_global_variables(current_user)
 
 		erb :index
+	rescue ActiveRecord::RecordNotFound => e
+		flash[:danger] = "Account does not exist."
+		redirect back
 	end
 
 	patch '/accounts/:id' do
@@ -88,4 +111,5 @@ class AccountsController < ApplicationController
 		redirect "/"
 		erb :index
 	end
+
 end

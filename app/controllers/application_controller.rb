@@ -8,6 +8,7 @@ class ApplicationController < Sinatra::Base
     set :views, "app/views"
     set :public_dir, "public"
     register Sinatra::Flash
+    enable :logging
   end
 
   # Main Dashboard Info

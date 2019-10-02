@@ -54,6 +54,42 @@ var hidePaidPayments = function (){
 	paidPayments.classList.add("d-none");
 }
 
+// Edit Monthly Budget
+var monthlyPayment = document.querySelector('#dollar_amount');
+var url = window.location.host;
+
+var setListener = function(el){
+	var events = ['click', 'keypress'];
+
+	// iterates over event types
+	events.forEach(event => {
+		el.addEventListener(event, function(event){
+			if (event.which === 1) {
+				el.contentEditable = 'true';
+			} else if (event.which === 13) {
+				console.log(el.innerText);
+				fetch("http://" + url + "/user/" + el.innerText, {
+					headers: {
+						"content-type":"application/json; charset=UTF-8"
+					},
+					payment_id: el.id,
+					method: "PATCH"
+				})
+				.then(data => {
+					// location.reload(true);
+					return data;
+				})
+				el.contentEditable = 'false';
+			}
+		});
+	});
+};
+
+setListener(monthlyPayment);
+// const getValue = () => {
+// 	console.log($monthly_budget);
+// };
+
 $(document).ready(function(){
 	var paymentID = "";
 
@@ -68,7 +104,7 @@ $(document).ready(function(){
 		modal.find('#markPaid').attr('action', url + "/" + paymentID);
 	})
 
-	$(".alert").delay(2000).slideUp(200, function() {
+	$(".alert").delay(4000).slideUp(200, function() {
 		$(this).alert('close');
 	});
 
