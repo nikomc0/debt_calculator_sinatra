@@ -44,8 +44,8 @@ class AccountsController < ApplicationController
 		else
 			@account.save
 			flash[:success] = "Account was saved."
-			@account.update_global_variables(current_user)
-			@account.update_payment_schedule(current_user)
+			user.update_global_variables(current_user)
+			user.update_payment_schedule(current_user)
 
 			redirect to("/accounts/#{@account.id}")
 			erb :index
@@ -54,9 +54,9 @@ class AccountsController < ApplicationController
 
 	get '/accounts/:id' do		
 		# ActiveRecord::Base.logger.level = 1
-
-		current_account
-		current_account.update_global_variables(current_user)
+		@current_account = current_user.accounts.find(params[:id])
+		
+		current_user.update_global_variables(current_user)
 
 		erb :index
 	rescue ActiveRecord::RecordNotFound => e
@@ -71,8 +71,8 @@ class AccountsController < ApplicationController
 
  		if @account.update(changes)
 			flash[:success] = "Account was saved."
-    	@account.update_global_variables(current_user)
-    	@account.update_payment_schedule(current_user)
+    	current_user.update_global_variables(current_user)
+    	current_user.update_payment_schedule(current_user)
 
 			redirect to("/accounts/#{@account.id}")
 			erb :index

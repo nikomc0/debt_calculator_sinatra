@@ -29,13 +29,15 @@ class UsersController < ApplicationController
 	end
 
 	patch "/user/:monthly_budget" do
+				# ActiveRecord::Base.logger.level = 1
 		@user = User.find_by(id: current_user.id)
 		# @account = Account.find(params[:account_id])
-
 		@user.monthly_budget = params[:monthly_budget]
+		warden_handler.set_user(@user)
+		
 		@user.save
 
-		# @account.update_global_variables(@user)
-  #   @account.update_payment_schedule(current_user)
+		@user.update_global_variables(current_user)
+    @user.update_payment_schedule(current_user)
 	end
 end

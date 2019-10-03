@@ -20,4 +20,19 @@ class User < ActiveRecord::Base
       false
     end
   end
+
+  def update_global_variables(user)
+    $total_accounts = user.accounts.all.length
+    $accounts = user.accounts.all
+    $total_debt = user.accounts.sum(:principal)
+    $monthly_budget = user.monthly_budget
+  end
+
+  def update_payment_schedule(user)
+    monthly_budget = user.monthly_budget
+
+    Account.where("principal > 0").each do |account|
+      PaymentSchedule.new(account, monthly_budget).get_schedule
+    end
+  end
 end

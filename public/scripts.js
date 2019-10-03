@@ -76,7 +76,7 @@ var setListener = function(el){
 					method: "PATCH"
 				})
 				.then(data => {
-					// location.reload(true);
+					location.reload(true);
 					return data;
 				})
 				el.contentEditable = 'false';
