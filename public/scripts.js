@@ -68,7 +68,7 @@ var setListener = function(el){
 				el.contentEditable = 'true';
 			} else if (event.which === 13) {
 				console.log(el.innerText);
-				fetch("http://" + url + "/user/" + el.innerText, {
+				fetch("https://" + url + "/user/" + el.innerText, {
 					headers: {
 						"content-type":"application/json; charset=UTF-8"
 					},

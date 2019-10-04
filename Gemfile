@@ -9,6 +9,7 @@ source "https://rubygems.org"
 	gem 'require_all'
 	gem 'warden'
 	gem 'bcrypt'
+	gem 'sinatra-cross_origin'
 
  group :test do
  	gem 'rspec'	

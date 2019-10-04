@@ -8,7 +8,19 @@ class ApplicationController < Sinatra::Base
     set :views, "app/views"
     set :public_dir, "public"
     register Sinatra::Flash
+    register Sinatra::CrossOrigin
     enable :logging
+  end
+
+  before do
+    response.headers['Access-Control-Allow-Origin'] = '*'
+  end
+
+  options "*" do
+    response.headers["Allow"] = "GET, PUT, POST, PATCH, DELETE, OPTIONS"
+    response.headers["Access-Control-Allow-Headers"] = "Authorization, Content-Type, Accept, X-User-Email, X-Auth-Token"
+    response.headers["Access-Control-Allow-Origin"] = "https://safe-wildwood-85428.herokuapp.com"
+    200
   end
 
   # Main Dashboard Info

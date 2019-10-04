@@ -120,6 +120,7 @@ GEM
     sinatra-activerecord (2.0.14)
       activerecord (>= 3.2)
       sinatra (>= 1.0)
+    sinatra-cross_origin (0.4.0)
     sinatra-flash (0.3.0)
       sinatra (>= 1.0.0)
     slop (3.6.0)
@@ -161,6 +162,7 @@ DEPENDENCIES
   shotgun
   sinatra
   sinatra-activerecord
+  sinatra-cross_origin
   sinatra-flash
   tux
   warden
