@@ -1,6 +1,7 @@
 require "sinatra"
 require "sinatra/flash"
 require "warden"
+require 'sinatra/cross_origin'
 
 class ApplicationController < Sinatra::Base
   
