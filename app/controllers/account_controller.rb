@@ -33,6 +33,7 @@ class AccountsController < ApplicationController
 			:user_id => current_user.id,
 			:account_name => params[:account][:account_name], 
 			:principal => params[:account][:principal],
+			:min_payment => params[:account][:min_payment],
 			:due_date => params[:account][:due_date], 
 			:apr => params[:account][:apr]
 		)
