@@ -102,6 +102,10 @@ class AccountsController < ApplicationController
   	@payment.destroy
   	flash[:success] = "Payment has been saved."
   	redirect "/accounts/#{params[:account_id]}"
+
+  rescue ActiveRecord::RecordNotFound => e
+		flash[:danger] = "Account does not exist."
+		redirect back
   end
 
 	delete '/accounts/:id' do 
