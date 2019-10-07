@@ -23,6 +23,8 @@ class PaymentSchedule
 		@account[:monthly_interest] = monthly_interest(@account)
 		@account[:monthly_payment] 	= monthly_payment
 		@account[:num_months] 			= num_months(@account)
+		min_monthly_payment
+
 		calculate_pay_schedule(@account)
 		@account.save
 	end
@@ -31,8 +33,15 @@ class PaymentSchedule
 		monthly_interest = (@account.apr / 100) / 12
 	end
 
+	# TO DO
+	# If an account has a minimum monthly payment configured
+	# apply the min payment and remove from available monthly budget.
+	def min_monthly_payment
+		accounts_with_min_payments = Account.where("user_id = ? AND min_payment != ? OR min_payment != ?", @account.user_id, nil, 0)
+	end
+
 	def monthly_payment
-		accounts_with_balances = Account.where("user_id = #{@account.user_id} AND principal > 0").count
+		accounts_with_balances = Account.where("user_id = ? AND principal > ?", @account.user_id, 0).count
 
 		monthly_payment = @monthly_budget / accounts_with_balances
 	end

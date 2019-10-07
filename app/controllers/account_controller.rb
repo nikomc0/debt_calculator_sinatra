@@ -66,6 +66,7 @@ class AccountsController < ApplicationController
 	end
 
 	patch '/accounts/:id' do
+		# ActiveRecord::Base.logger.level = 1
   	@account = Account.find(params[:id])
 
  		changes = params.reject { |k, v| v.blank? || v === "PATCH"}
