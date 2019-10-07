@@ -11,34 +11,39 @@ infoButton.addEventListener("click", function(event){
 	}
 });
 
-// PATCH METHOD for Payments
-var paymentTable = document.querySelectorAll("#edit_payment");
-var url = window.location.href;
+// TO DO
+// Determine if this functionality is still required.
+// =================================
 
-var setListener = function(el){
-	el.addEventListener('click', function(event){
+
+// // PATCH METHOD for Payments
+// var paymentTable = document.querySelectorAll("#edit_payment");
+// var url = window.location.href;
+
+// var setListener = function(el){
+// 	el.addEventListener('click', function(event){
 		
-	});
+// 	});
 	
-}
+// }
 
-if (paymentTable[0]) {
-	// setListener(paymentTable[0]);
-}
+// if (paymentTable[0]) {
+// 	// setListener(paymentTable[0]);
+// }
 
-var markPaymentAsPaid = function(dataset){
-	fetch(url + "/" + el.id, {
-		headers: {
-			"content-type":"application/json; charset=UTF-8"
-		},
-		payment_id: el.id,
-		method: "PATCH"
-	})
-	.then(data => { 
-		location.reload(true);
-		return data;
-	})
-};
+// var markPaymentAsPaid = function(dataset){
+// 	fetch(url + "/" + el.id, {
+// 		headers: {
+// 			"content-type":"application/json; charset=UTF-8"
+// 		},
+// 		payment_id: el.id,
+// 		method: "PATCH"
+// 	})
+// 	.then(data => { 
+// 		location.reload(true);
+// 		return data;
+// 	})
+// };
 
 // Show/Hide Paid Payments
 var paidPayments = document.querySelector(".paid_payments");
@@ -86,12 +91,10 @@ var setListener = function(el){
 };
 
 setListener(monthlyPayment);
-// const getValue = () => {
-// 	console.log($monthly_budget);
-// };
 
 $(document).ready(function(){
 	var paymentID = "";
+	var paymentURL = window.location.href;
 
 	$('#edit_payment').click(function(event) {
 		paymentID = event.target.attributes["data-payment-id"].value;
@@ -101,7 +104,7 @@ $(document).ready(function(){
 	$('#editPayment').on('shown.bs.modal', function (event) {
 		var modal = $(this)
 		modal.find('.modal-body input').val(paymentID);
-		modal.find('#markPaid').attr('action', url + "/" + paymentID);
+		modal.find('#markPaid').attr('action', paymentURL + "/" + paymentID);
 	})
 
 	$(".alert").delay(4000).slideUp(200, function() {
