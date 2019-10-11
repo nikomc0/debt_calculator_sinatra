@@ -10,11 +10,11 @@ class PaymentSchedule
 	end
 
 	def post_initialize(account)
-		if account.min_payment === 0
-			@account.min_payment = nil
-		else
-			@monthly_budget -= account.min_payment
-		end
+		# if account.min_payment === 0
+		# 	@account.min_payment = nil
+		# else
+		# 	@monthly_budget -= account.min_payment
+		# end
 
 		if account.paid_payments.count > 0
 			@account.month = account.paid_payments.last.month
@@ -59,7 +59,6 @@ class PaymentSchedule
 	def calculate_pay_schedule(account)
 		payment = account.monthly_payment
 		month = account.month
-		p account.monthly_interest
 		accrued_interest = account.principal * account.monthly_interest
 		updated_balance = account.principal + accrued_interest
 
