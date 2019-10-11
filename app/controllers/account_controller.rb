@@ -33,6 +33,7 @@ class AccountsController < ApplicationController
 			:user_id => current_user.id,
 			:account_name => params[:account][:account_name], 
 			:principal => params[:account][:principal],
+			:min_payment => params[:account][:min_payment],
 			:due_date => params[:account][:due_date], 
 			:apr => params[:account][:apr]
 		)
@@ -53,7 +54,7 @@ class AccountsController < ApplicationController
 	end
 
 	get '/accounts/:id' do		
-		# ActiveRecord::Base.logger.level = 1
+		ActiveRecord::Base.logger.level = 1
 		@current_account = current_user.accounts.find(params[:id])
 		
 		current_user.update_global_variables(current_user)
@@ -65,6 +66,7 @@ class AccountsController < ApplicationController
 	end
 
 	patch '/accounts/:id' do
+		ActiveRecord::Base.logger.level = 1
   	@account = Account.find(params[:id])
 
  		changes = params.reject { |k, v| v.blank? || v === "PATCH"}
@@ -83,7 +85,7 @@ class AccountsController < ApplicationController
   end
 
   patch '/accounts/:account_id/:payment_id' do
-  	# ActiveRecord::Base.logger.level = 1
+  	ActiveRecord::Base.logger.level = 1
   	#  Finds the Account and its Payment that was clicked.
   	@account = Account.find(params[:account_id])
   	@payment = @account.payments.find(params[:payment_id])
@@ -112,7 +114,7 @@ class AccountsController < ApplicationController
 		@account = Account.find(params[:id])
 		@account.delete
 
-		redirect "/"
+		redirect to ("/")
 		erb :index
 	end
 

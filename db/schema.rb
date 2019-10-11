@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_23_130432) do
+ActiveRecord::Schema.define(version: 2019_10_04_130852) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,16 +19,17 @@ ActiveRecord::Schema.define(version: 2019_09_23_130432) do
     t.integer "user_id"
     t.string "account_name"
     t.decimal "principal", precision: 10, scale: 2
-    t.decimal "apr", precision: 10, scale: 2
+    t.decimal "apr", precision: 13, scale: 9
     t.integer "due_date"
     t.boolean "paid", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "account_id"
-    t.decimal "monthly_interest", precision: 10, scale: 2
+    t.decimal "monthly_interest", precision: 13, scale: 9
     t.decimal "monthly_payment", precision: 10, scale: 2
     t.integer "num_months"
     t.datetime "month"
+    t.decimal "min_payment", precision: 10, scale: 2
     t.index ["account_id"], name: "index_accounts_on_account_id"
   end
 
@@ -57,8 +58,8 @@ ActiveRecord::Schema.define(version: 2019_09_23_130432) do
     t.decimal "monthly_budget", precision: 10, scale: 2
     t.string "password_hash", null: false
     t.boolean "user", default: true
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

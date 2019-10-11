@@ -11,40 +11,6 @@ infoButton.addEventListener("click", function(event){
 	}
 });
 
-// TO DO
-// Determine if this functionality is still required.
-// =================================
-
-
-// // PATCH METHOD for Payments
-// var paymentTable = document.querySelectorAll("#edit_payment");
-// var url = window.location.href;
-
-// var setListener = function(el){
-// 	el.addEventListener('click', function(event){
-		
-// 	});
-	
-// }
-
-// if (paymentTable[0]) {
-// 	// setListener(paymentTable[0]);
-// }
-
-// var markPaymentAsPaid = function(dataset){
-// 	fetch(url + "/" + el.id, {
-// 		headers: {
-// 			"content-type":"application/json; charset=UTF-8"
-// 		},
-// 		payment_id: el.id,
-// 		method: "PATCH"
-// 	})
-// 	.then(data => { 
-// 		location.reload(true);
-// 		return data;
-// 	})
-// };
-
 // Show/Hide Paid Payments
 var paidPayments = document.querySelector(".paid_payments");
 var showHideButton = document.querySelector("#show_hide_payments");
