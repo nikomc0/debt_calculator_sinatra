@@ -10,40 +10,46 @@ class PaymentSchedule
 	end
 
 	def post_initialize(account)
+		if account.min_payment === 0
+			@account.min_payment = nil
+		else
+			@monthly_budget -= account.min_payment.to_d
+		end
+
 		if account.paid_payments.count > 0
 			@account.month = account.paid_payments.last.month
 		else
 			@account.month = @month_created
 		end
+
 		@account.save
 	end
 
 	def get_schedule
 		@account.clear_payments
 		@account[:monthly_interest] = monthly_interest(@account)
-		@account[:monthly_payment] 	= monthly_payment
+		@account[:monthly_payment]  = monthly_payment
 		@account[:num_months] 			= num_months(@account)
-		min_monthly_payment
-
-		calculate_pay_schedule(@account)
+		# min_monthly_payment
 		@account.save
+		p @account.monthly_interest
+		calculate_pay_schedule(@account)
 	end
 
 	def monthly_interest(account)
-		monthly_interest = (@account.apr / 100) / 12
-	end
-
-	# TO DO
-	# If an account has a minimum monthly payment configured
-	# apply the min payment and remove from available monthly budget.
-	def min_monthly_payment
-		accounts_with_min_payments = Account.where("user_id = ? AND min_payment != ? OR min_payment != ?", @account.user_id, nil, 0)
+		monthly_interest = (account.apr.to_f / 100) / 12
 	end
 
 	def monthly_payment
-		accounts_with_balances = Account.where("user_id = ? AND principal > ?", @account.user_id, 0).count
-
-		monthly_payment = @monthly_budget / accounts_with_balances
+		if @account.min_payment && @account.min_payment > 0
+			@account.min_payment
+		else
+			accounts_with_min_payments = Account.where("user_id = ? AND principal > ? AND min_payment IS NOT NULL", @account.user_id, 0)
+			accounts_with_balances = Account.where("user_id = ? AND principal > ? AND min_payment IS NULL", @account.user_id, 0)
+			usable_budget = @monthly_budget - accounts_with_min_payments.sum(:min_payment)
+			
+			monthly_payment = usable_budget / accounts_with_balances.count
+		end
 	end
 
 	def num_months(account)
@@ -54,7 +60,9 @@ class PaymentSchedule
 	def calculate_pay_schedule(account)
 		payment = account.monthly_payment
 		month = account.month
-		updated_balance = account.principal
+		p account.monthly_interest
+		accrued_interest = account.principal * account.monthly_interest
+		updated_balance = account.principal + accrued_interest
 
 		# Create payment schedule
 		while updated_balance > 0 do
@@ -72,6 +80,7 @@ class PaymentSchedule
 					balance: updated_balance
 				)
 			else
+				updated_balance += accrued_interest
 				updated_balance -= payment
 
 				Payment.create(

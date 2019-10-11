@@ -11,10 +11,6 @@ infoButton.addEventListener("click", function(event){
 	}
 });
 
-
-
-
-
 // Show/Hide Paid Payments
 var paidPayments = document.querySelector(".paid_payments");
 var showHideButton = document.querySelector("#show_hide_payments");
