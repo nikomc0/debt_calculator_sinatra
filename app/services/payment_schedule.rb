@@ -13,7 +13,7 @@ class PaymentSchedule
 		if account.min_payment === 0
 			@account.min_payment = nil
 		else
-			@monthly_budget -= account.min_payment.to_d
+			@monthly_budget -= account.min_payment
 		end
 
 		if account.paid_payments.count > 0
@@ -32,12 +32,11 @@ class PaymentSchedule
 		@account[:num_months] 			= num_months(@account)
 		# min_monthly_payment
 		@account.save
-		p @account.monthly_interest
 		calculate_pay_schedule(@account)
 	end
 
 	def monthly_interest(account)
-		monthly_interest = (account.apr.to_f / 100) / 12
+		monthly_interest = (account.apr / 100) / 12
 	end
 
 	def monthly_payment
