@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
   def update_payment_schedule(user)
     monthly_budget = user.monthly_budget
 
-    Account.where("user_id = ? AND principal > ?", user.id, 0).each do |account|
+    Account.where("principal > 0").each do |account|
       PaymentSchedule.new(account, monthly_budget).get_schedule
     end
   end

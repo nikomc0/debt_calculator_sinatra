@@ -33,9 +33,6 @@ class ApplicationController < Sinatra::Base
     $monthly_budget = current_user.monthly_budget
 
     erb :index
-
-  rescue ActiveRecord::RecordNotFound => e
-    redirect "/login"
   end
 
   get "/login" do
@@ -51,8 +48,6 @@ class ApplicationController < Sinatra::Base
     else
       redirect "/login"
     end
-  rescue
-    redirect "/create_account"
   end
 
   get "/logout" do
