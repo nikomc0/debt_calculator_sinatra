@@ -1,3 +1,6 @@
+require_relative '../workers/big_job_v2'
+require 'timer'
+
 class User < ActiveRecord::Base
 	has_many :accounts
 
@@ -21,6 +24,20 @@ class User < ActiveRecord::Base
     end
   end
 
+  def get_accounts
+    @accounts ||= accounts.all
+  end
+
+  def total_debt
+    total = 0
+
+    @accounts.each do |t|
+      total += t.principal
+    end
+
+    total
+  end
+
   def update_global_variables(user)
     $total_accounts = user.accounts.all.length
     $accounts = user.accounts.all
@@ -28,11 +45,18 @@ class User < ActiveRecord::Base
     $monthly_budget = user.monthly_budget
   end
 
-  def update_payment_schedule(user)
+  def update_payment_schedule(user, account)
+    timer = Timer.new()
     monthly_budget = user.monthly_budget
 
-    Account.where("user_id = ? AND principal > ?", user.id, 0).each do |account|
-      PaymentSchedule.new(account, monthly_budget).get_schedule
+    timer.time do
+      threads = []
+      threads << Thread.new { PaymentSchedule.new(account, monthly_budget).get_schedule }
+    #   Account.where("user_id = ? AND principal > ?", user.id, 0).each do |account|
+    #     threads << Thread.new { PaymentSchedule.new(account, monthly_budget).get_schedule }
+    #   end
+
+      threads.each { |t| t.join }
     end
   end
 end
