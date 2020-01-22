@@ -16,7 +16,6 @@ class User < ActiveRecord::Base
   end
 
   def authenticate(attempted_password)
-  	pp self.password
     if self.password == attempted_password
       true
     else
@@ -38,25 +37,36 @@ class User < ActiveRecord::Base
     total
   end
 
-  def update_global_variables(user)
-    $total_accounts = user.accounts.all.length
-    $accounts = user.accounts.all
-    $total_debt = user.accounts.sum(:principal)
-    $monthly_budget = user.monthly_budget
+  def current_account(id)
+    puts @accounts
+    # @accounts.each do |t|
+    #   if t.id === id
+    #     t
+    #   else
+    #     "Account not found."
+    #   end
+    # end
+  end
+
+  def update_global_variables
+    $total_accounts = self.get_accounts.length
+    $accounts = self.get_accounts
+    $total_debt = self.total_debt
+    $monthly_budget = self.monthly_budget
   end
 
   def update_payment_schedule(user, account)
     timer = Timer.new()
     monthly_budget = user.monthly_budget
 
-    timer.time do
+    puts (timer.time do
       threads = []
-      threads << Thread.new { PaymentSchedule.new(account, monthly_budget).get_schedule }
-    #   Account.where("user_id = ? AND principal > ?", user.id, 0).each do |account|
-    #     threads << Thread.new { PaymentSchedule.new(account, monthly_budget).get_schedule }
-    #   end
+  
+      Account.where("user_id = ? AND principal > ?", user.id, 0).each do |account|
+        threads << Thread.new { PaymentSchedule.new(account, monthly_budget) }
+      end
 
       threads.each { |t| t.join }
-    end
+    end)
   end
 end

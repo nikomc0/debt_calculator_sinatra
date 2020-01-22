@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2019_10_04_130852) do
   create_table "accounts", force: :cascade do |t|
     t.integer "user_id"
     t.string "account_name"
-    t.decimal "principal", precision: 10, scale: 2
+    t.decimal "principal", precision: 22, scale: 2
     t.decimal "apr", precision: 13, scale: 9
     t.integer "due_date"
     t.boolean "paid", default: false
@@ -26,16 +26,16 @@ ActiveRecord::Schema.define(version: 2019_10_04_130852) do
     t.datetime "updated_at", null: false
     t.integer "account_id"
     t.decimal "monthly_interest", precision: 13, scale: 9
-    t.decimal "monthly_payment", precision: 10, scale: 2
+    t.decimal "monthly_payment", precision: 26, scale: 2
     t.integer "num_months"
     t.datetime "month"
-    t.decimal "min_payment", precision: 10, scale: 2
+    t.decimal "min_payment", precision: 22, scale: 2
     t.index ["account_id"], name: "index_accounts_on_account_id"
   end
 
   create_table "paid_payments", force: :cascade do |t|
     t.integer "account_id"
-    t.decimal "payment", precision: 10, scale: 2
+    t.decimal "payment", precision: 26, scale: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "month"
@@ -43,11 +43,11 @@ ActiveRecord::Schema.define(version: 2019_10_04_130852) do
 
   create_table "payments", force: :cascade do |t|
     t.integer "account_id"
-    t.decimal "payment", precision: 10, scale: 2
+    t.decimal "payment", precision: 26, scale: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "month"
-    t.decimal "balance", precision: 10, scale: 2
+    t.decimal "balance", precision: 26, scale: 2
     t.boolean "paid", default: false
   end
 

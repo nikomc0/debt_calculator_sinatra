@@ -12,7 +12,7 @@
 			<% if @current_account %> 
 				<h6><%= @current_account[:account_name] %></h6><p data-toggle="modal" data-target="#editAccountModal">edit</p>
 				<h4>$<%= @current_account[:principal] %></h4>
-				<p>Repayment in <%= @current_account.num_months %> months</p>
+				<p>Repayment in <%= @current_account[:num_months] %> months</p>
 			<% end %>
 		</div>
 		<div id="show_hide_payments" class="col-2">
