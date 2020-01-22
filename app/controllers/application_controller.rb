@@ -2,7 +2,6 @@ require "sinatra"
 require "sinatra/flash"
 require "warden"
 require 'sinatra/cross_origin'
-require_relative '../workers/big_job_v2'
 
 class ApplicationController < Sinatra::Base
   

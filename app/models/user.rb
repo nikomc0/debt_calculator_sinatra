@@ -1,4 +1,3 @@
-require_relative '../workers/big_job_v2'
 require 'timer'
 
 class User < ActiveRecord::Base
