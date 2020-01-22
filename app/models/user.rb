@@ -62,6 +62,5 @@ class User < ActiveRecord::Base
     end
 
     threads.each { |t| t.join }
-    end
   end
 end
