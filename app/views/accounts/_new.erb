@@ -19,7 +19,13 @@
 
 								<label for="accountMinPayment" class="col-form-label">Minimum Monthly Payment:</label><br>
 								<input type="text" class="form-control" placeholder="Minimum Payment ex. 65" name="account[min_payment]"><br>
-
+								<div class="valid-feedback">
+									<p class="minPaymentSuggestion"></p>
+					      </div>
+								<div class="invalid-feedback">
+									Increase your minimum payment.
+								</div>
+								
 								<label for="accountAPR" class="col-form-label">APR:</label><br>
 								<input type="text" class="form-control" placeholder="% ex. 14" name="account[apr]"><br>
 

@@ -1,25 +1,61 @@
-<div class="container">
-	<h1>LOGIN</h1>
-	
-	<% flash.keys.each do |type| %>
-		<div data-alert class="alert alert-<%= type %>">
-		  <%= flash[type] %>
-		</div>
-	<% end %>
+<!-- <div class="container" style="height: 100%;"> -->
+  <div class="row">
+    <div class="col">
+      <div class="row">
+        <div class="login-screen col-8">
+        	<div class="container pt-5">
+	          Debt Calculator
+						<div>
+							<p>I created this app to help my wife and I wrangle our outstanding debt.</p>
 
-	<form method="POST" action="/session">
-		<div class="form-group">
-			<label for="userName">User Name</label><br>
-			<input type="text" class="form-control" name="user_name"><br>
+							<p>The idea is to have all of your debt in one location along with your
+							monthly budget allocated to paying down that debt you will have less
+							fear when it comes to tackling this common issue facing couples.</p>
 
-			<label for="userPassword">Password</label><br>
-			<input type="text" class="form-control" name="password"><br>
-		</div>
+							<p>Previously, we were using an excel spread sheet which worked but it 
+							wasn't keeping us accountable. We were unsure if our formulas were
+							correct. And its easy to get overwhelmed by the columns and rows of
+							percevied failure in number format.</p>
 
-		<div class="form-group">
-			<input type="submit" class="btn btn-primary" value="Login">
-		</div>
-	</form>
+							How it works:
+							<div class="list-group">
+							  <a class="list-group-item list-group-item-action active">
+									Track your accounts.
+							  </a>
+							  <a class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
+							  <a class="list-group-item list-group-item-action">Morbi leo risus</a>
+							</div>
+						</div>
+					</div>
+        </div>
+        <div class="col-4">
+        	<div class="container pt-5">
+	          <h4>Login</h4>
+						
+						<% flash.keys.each do |type| %>
+							<div data-alert class="alert alert-<%= type %>">
+							  <%= flash[type] %>
+							</div>
+						<% end %>
 
-	<a href="/create_account">Create an Account</a>
-</div>
+						<form method="POST" action="/session">
+							<div class="form-group">
+								<label for="userName">User Name</label><br>
+								<input type="text" class="form-control" name="user_name"><br>
+
+								<label for="userPassword">Password</label><br>
+								<input type="password" class="form-control" name="password"><br>
+							</div>
+
+							<div class="form-group">
+								<input type="submit" class="btn btn-primary" value="Login">
+							</div>
+						</form>
+
+						<a href="/create_account">Create an Account</a>
+					</div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- </div> -->
