@@ -2,7 +2,6 @@ require "sinatra"
 require "sinatra/flash"
 require "warden"
 require 'sinatra/cross_origin'
-require_relative '../workers/big_job_v2'
 
 class ApplicationController < Sinatra::Base
   
@@ -28,10 +27,11 @@ class ApplicationController < Sinatra::Base
   # Main Dashboard Info
   get '/' do
     check_authentication
-    $total_accounts = current_user.get_accounts.length
-    $accounts = current_user.get_accounts
-    $total_debt = current_user.total_debt
-    $monthly_budget = current_user.monthly_budget
+    current_user.update_global_variables
+    # $total_accounts = current_user.get_accounts.length
+    # $accounts = current_user.get_accounts
+    # $total_debt = current_user.total_debt
+    # $monthly_budget = current_user.monthly_budget
 
     erb :index
 

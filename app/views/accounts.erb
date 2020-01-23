@@ -1,5 +1,5 @@
 
-	<% $accounts.each_with_index do |t, i| %>
+	<% $accounts.map do |t| %>
 		<li>
 			<a href="/accounts/<%= t.id %>">
 				<div class="row">

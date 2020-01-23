@@ -10,6 +10,9 @@ source "https://rubygems.org"
 	gem 'warden'
 	gem 'bcrypt'
 	gem 'sinatra-cross_origin'
+	gem 'activerecord-import', '1.0.4'
+	gem 'sidekiq'
+	gem 'activesupport'
 
  group :test do
  	gem 'rspec'	
@@ -28,4 +31,5 @@ source "https://rubygems.org"
 	gem 'pry-remote'
 	gem 'tux'
 	gem 'byebug', "~> 10.0"
+	gem 'timer'
  end

@@ -57,21 +57,20 @@
 		</div>
 	<% end %>
 	<div id="accounts-section" class="row">
-		<div id="account_list" class="shadow p-3 mb-5 bg-white rounded col mx-2">
+		<div id="account_list" class="shadow p-3 mb-5 bg-white rounded col">
 			<div class="row mt-2 mb-0">
 				<div class="col">
 					<h5 class="mb-0">Accounts</h5>
+								<hr>
+			<% if $accounts %>
+				<%= erb(:accounts) %>
+			<% end %>
 				</div>
 				<!-- Button trigger modal -->
 				<div>
 					<h6 id="account" class="m-0 px-4" style="font-size: .75rem;" data-toggle="modal" data-target="#newAccount">Add Account</h6>
 				</div>
 			</div>
-
-			<hr>
-			<% if $accounts %>
-				<%= erb(:accounts) %>
-			<% end %>
 
 			<!-- Modal -->
 			<%= erb(:'accounts/_new') %>

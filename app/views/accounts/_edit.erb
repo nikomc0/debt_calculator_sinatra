@@ -6,27 +6,48 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
+
+				<% flash.keys.each do |type| %>
+					<div data-alert class="alert alert-<%= type %>">
+						<%= flash[type] %>
+					</div>
+				<% end %>
+
       </div>
       <% if @current_account %> 
-      	<form method="POST" action="/accounts/<%= @current_account.id %>">
+      	<form method="POST" class="needs-validataion" action="/accounts/<%= @current_account.id %>">
 					<input type="hidden" name="_method" value="PATCH">
 		      <div class="modal-body">
 						<div class="container center">
 								<div class="form-group">
 									<label for="accountName" class="col-form-label">Name:</label><br>
 									<input type="text" class="form-control" placeholder="<%= @current_account.account_name %>" name="account_name"><br>
+									  <div class="valid-feedback">
+							        Looks good!
+							      </div>
 
 									<label for="accountPrincipal" class="col-form-label">Principal:</label><br>
-									<input type="text" class="form-control" placeholder="<%= @current_account.principal %>" name="principal"><br>
+									<input type="number" class="form-control" placeholder="<%= @current_account.principal %>" name="principal"><br>
 
 									<label for="accountMinPayment" class="col-form-label">Minimum Monthly Payment:</label><br>
-									<input type="text" class="form-control" placeholder="<%= @current_account.min_payment %>" name="min_payment"><br>
+									<input type="number" min="" class="form-control" placeholder="<%= @current_account.min_payment %>" name="min_payment" required><br>
+									<div class="valid-feedback">
+										<p class="minPaymentSuggestion"></p>
+						      </div>
+									<div class="invalid-feedback">
+										Increase your minimum payment.
+									</div>
+
+								  <input class="form-group" type="radio" name="minOnly" id="minOnly" value="min_only">
+								  <label class="col-form-label" for="minOnly">
+								    Pay the minimum only?
+								  </label><br>
 
 									<label for="accountAPR" class="col-form-label">APR:</label><br>
-									<input type="text" class="form-control" placeholder="<%= @current_account.apr %>" name="apr"><br>
+									<input type="number" class="form-control" placeholder="<%= @current_account.apr %>" name="apr"><br>
 
 									<label for="accountDueDate" class="col-form-label">Due Date:</label><br>
-									<input type="text" class="form-control" placeholder="<%= @current_account.due_date %>" name="due_date"><br>
+									<input type="number" class="form-control" placeholder="<%= @current_account.due_date %>" name="due_date"><br>
 								</div>
 						</div>
 		      </div>
