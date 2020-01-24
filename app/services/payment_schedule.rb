@@ -16,7 +16,13 @@ class PaymentSchedule
     @account.clear_payments
     @account.current_month
     @account[:monthly_interest] = monthly_interest(@account[:apr])
-    @account[:monthly_payment]  = monthly_payment(@monthly_budget, $total_accounts, @account[:min_payment])
+
+    if @account.min_only 
+      @account[:monthly_payment] = @account.min_payment
+    else
+      @account[:monthly_payment]  = monthly_payment(@monthly_budget, $total_accounts, @account[:min_payment])
+    end
+    
     @account[:num_months]       = num_months(@account[:monthly_interest], @account[:principal], @account[:monthly_payment])
     @account.save
     calculate_pay_schedule
