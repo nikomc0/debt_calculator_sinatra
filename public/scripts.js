@@ -73,7 +73,7 @@ $(document).ready(function(){
 		var values = [
 			{name: "principal", value: null},
 			{name: "minimum_payment", value: null},
-			{name: "apr", value: null}
+			{name: "apr", value: null},
 		];
 
 		var queryString = "?";

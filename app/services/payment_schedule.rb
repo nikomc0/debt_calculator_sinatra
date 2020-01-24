@@ -17,7 +17,8 @@ class PaymentSchedule
     @account.current_month
     @account[:monthly_interest] = monthly_interest(@account[:apr])
 
-    if @account.min_only 
+    # POOTERIZE IF ELSE
+    if @account.min_only == true
       @account[:monthly_payment] = @account.min_payment
     else
       @account[:monthly_payment]  = monthly_payment(@monthly_budget, $total_accounts, @account[:min_payment])
