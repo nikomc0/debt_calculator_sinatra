@@ -30,7 +30,7 @@
 									<input type="number" class="form-control" placeholder="<%= @current_account.principal %>" name="principal"><br>
 
 									<label for="accountMinPayment" class="col-form-label">Minimum Monthly Payment:</label><br>
-									<input type="number" min="" class="form-control" placeholder="<%= @current_account.min_payment %>" name="min_payment" required><br>
+									<input type="number" min="" class="form-control" placeholder="<%= @current_account.min_payment %>" name="min_payment" step="any" required><br>
 									<div class="valid-feedback">
 										<p class="minPaymentSuggestion"></p>
 						      </div>
@@ -38,7 +38,7 @@
 										Increase your minimum payment.
 									</div>
 
-								  <input class="form-group" type="radio" name="minOnly" id="minOnly" value="min_only">
+								  <input class="editMinOnly" type="checkbox" name="min_only" value="false">
 								  <label class="col-form-label" for="minOnly">
 								    Pay the minimum only?
 								  </label><br>

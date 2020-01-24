@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_04_130852) do
+ActiveRecord::Schema.define(version: 2020_01_24_133802) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 2019_10_04_130852) do
     t.integer "num_months"
     t.datetime "month"
     t.decimal "min_payment", precision: 22, scale: 2
+    t.boolean "min_only", default: false
     t.index ["account_id"], name: "index_accounts_on_account_id"
   end
 

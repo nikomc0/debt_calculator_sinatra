@@ -76,7 +76,7 @@ class AccountsController < ApplicationController
     @account = Account.find(params[:id])
 
     changes = params.reject { |k, v| v.blank? || v === "PATCH"}
-
+    
     if @account.update(changes)
       flash[:success] = "Account was saved."
       current_user.update_global_variables

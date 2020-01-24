@@ -79,6 +79,8 @@ $(document).ready(function(){
 		var queryString = "?";
 
 		$('#editAccountModal').on('change', function(e){
+			var minOnly = document.querySelector("#editAccountModal > div > div > form > div.modal-body > div > div > input.editMinOnly");
+
 			if (principal.value) {
 				values[0].value = parseInt(principal.value);
 			}
@@ -89,6 +91,10 @@ $(document).ready(function(){
 				values[2].value = parseInt(apr.value);
 			}
 
+			if (minOnly.checked) {
+				minOnly.value = true;
+			}
+			
 			queryString = "?";
 			new_values = values.filter(query => query.value != null).map(query => `${query.name}=${query.value}`).join("&");
 			queryString += new_values;
@@ -107,7 +113,6 @@ $(document).ready(function(){
 			})
 
 			document.querySelector("input[name='min_payment']").placeholder = `Suggested $${min.min}`;
-			debugger;
 			if ((parseInt(min.min) > parseInt(min.value))){
 				min.classList.remove("is-valid");
 				min.classList.add("is-invalid");
@@ -126,6 +131,12 @@ $(document).ready(function(){
 		var min_payment = principal.value * 0.03
 
 		$('#newAccount').on('change', function(){
+			var minOnly = document.querySelector("#newAccountModal > div > div > form > div.modal-body > div > div > input.newMinOnly");
+			
+			if (minOnly.checked) {
+				minOnly.value = true;
+			}
+			
 			min.min = principal.value * 0.03;
 			document.querySelector("input[name='account[min_payment]']").placeholder = `Suggested $${min.min}`;
 			if ((parseInt(min.min) > parseInt(min.value))){
