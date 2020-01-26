@@ -8,7 +8,7 @@ class Account < ActiveRecord::Base
 	include ::FinanceCalculations
 
 	def clear_payments
-		self.payments.destroy_all
+		bulk_delete(self.id)
 		ActiveRecord::Base.connection.reset_pk_sequence!('payments')
 		self.reload.payments
 	end
@@ -33,5 +33,18 @@ class Account < ActiveRecord::Base
 
 	def find_minimum_payment
 		self.minimum_payment
+	end
+
+	include ::RawSqlHelper
+
+	def bulk_delete(account_id)
+		query =	<<-SQL 
+		WITH cte AS (SELECT id FROM payments WHERE payments.account_id = #{account_id}
+		)
+		DELETE FROM payments
+		USING  cte;
+		SQL
+
+		get_conn.exec_query(query)
 	end
 end
