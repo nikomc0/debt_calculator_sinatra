@@ -1,5 +1,3 @@
-require 'timer'
-
 class User < ActiveRecord::Base
 	has_many :accounts
 
@@ -55,17 +53,14 @@ class User < ActiveRecord::Base
   end
 
   def update_payment_schedule(user, account)
-    timer = Timer.new()
     monthly_budget = user.monthly_budget
 
-    puts (timer.time do
-      threads = []
+    threads = []
   
-      Account.where("user_id = ? AND principal > ?", user.id, 0).each do |account|
-        threads << Thread.new { PaymentSchedule.new(account, monthly_budget) }
-      end
+    Account.where("user_id = ? AND principal > ?", user.id, 0).each do |account|
+      threads << Thread.new { PaymentSchedule.new(account, monthly_budget) }
+    end
 
-      threads.each { |t| t.join }
-    end)
+    threads.each { |t| t.join }
   end
 end
