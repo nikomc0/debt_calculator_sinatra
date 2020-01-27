@@ -1,0 +1,27 @@
+<div class="row text-center">
+  <div class="col-md"><p class="lead">
+  	<div id="total_accounts" class="main-dashboard rounded active">
+	  	<span style="font-size: 3rem;"><i class="far fa-credit-card"></i></span><br>
+	  	<h4><strong>Accounts</strong></h4></p>
+			<div class="col-md"><h5><%= $total_accounts %></h5></div>
+		</div>
+  </div>
+	<div class="col-md"><p class="lead">
+		<div id="total_debt" class="main-dashboard rounded">
+			<span style="font-size: 3rem;"><i class="fas fa-dollar-sign"></i></span><br>
+			<h4><strong>Total Debt</strong></h4></p>
+			<% if $total_debt %>
+			<div class="col-md"><h5>$<%= '%.2f' % $total_debt %></h5></div>
+			<% end %> 
+		</div>
+	</div>
+  <div class="col-md"><p class="lead">
+  	<div id="monthly_budget" class="main-dashboard rounded">
+	  	<span style="font-size: 3rem;"><i class="fas fa-piggy-bank"></i></span><br>
+	  	<h4><strong>Monthly Budget</strong></h4></p>
+	  	<% if $monthly_budget %>
+	  	<div id="monthly__payment" class="col-md"><h5>$<span id="dollar_amount"><%= '%.2f' % $monthly_budget %></span></h5></div>
+	  	<% end %>
+	  </div>
+  </div>
+</div>

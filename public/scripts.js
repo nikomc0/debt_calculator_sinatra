@@ -59,6 +59,22 @@ var setListener = function(el){
 setListener(monthlyPayment);
 
 $(document).ready(function(){
+	
+	// Announcement Block
+	var readAnnouncement = localStorage.getItem("readAnnouncement");
+
+	if (!readAnnouncement){
+		$('<div>', { id : 'overlay' }).appendTo('body');
+		$("#announcement").fadeIn('slow');
+		$("#close").click(function(e){
+			localStorage.setItem("readAnnouncement", "true");
+			$('#announcement').remove();
+			$('#overlay').remove();
+			e.preventDefault();
+		});
+	}
+	// Announcement Block End
+	
 	var paymentID = "";
 	var paymentURL = window.location.href;
 	var url = window.location.href;

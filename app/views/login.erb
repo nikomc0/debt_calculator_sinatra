@@ -22,8 +22,8 @@
 							  <a class="list-group-item list-group-item-action active">
 									Track your accounts.
 							  </a>
-							  <a class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
-							  <a class="list-group-item list-group-item-action">Morbi leo risus</a>
+							  <a class="list-group-item list-group-item-action">Calculate Pay down schedule</a>
+							  <a class="list-group-item list-group-item-action">Get smart with your debt</a>
 							</div>
 						</div>
 					</div>
@@ -32,12 +32,6 @@
         	<div class="container pt-5">
 	          <h4>Login</h4>
 						
-						<% flash.keys.each do |type| %>
-							<div data-alert class="alert alert-<%= type %>">
-							  <%= flash[type] %>
-							</div>
-						<% end %>
-
 						<form method="POST" action="/session">
 							<div class="form-group">
 								<label for="userName">User Name</label><br>

@@ -1,0 +1,28 @@
+	<div class="jumbotron text-white-50 rounded-0">
+		<div class="row justify-content-end">
+		<div id="show_info" class="col-5">
+			<div id="personal__info" class="d-none">
+				<%= erb(:'header/personal_info') %>
+			</div>
+		</div>
+
+		<% if !warden_handler.authenticated? %>>
+			
+		<% else %>
+			<div class="col-1">
+				<span id="info__button" style="font-size: 1.5rem;"><i class="fas fa-user-cog"></i></span></ion-icon>
+				<p><%= current_user.user_name %></p>
+				<a href="/logout"> Logout </a>
+			</div>
+
+		<% end %>
+		</div>
+
+	  <h1 class="display-4">Debt Calculator</h1>
+		
+		<%= erb(:'splash/features') %>
+
+	  <hr class="my-4">
+		
+		<%= erb(:'header/user_details') %>
+	</div>
