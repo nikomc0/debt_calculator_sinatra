@@ -90,6 +90,7 @@ $(document).ready(function(){
 			{name: "principal", value: null},
 			{name: "minimum_payment", value: null},
 			{name: "apr", value: null},
+			{name: "min_only", value: false}
 		];
 
 		var queryString = "?";
@@ -108,7 +109,7 @@ $(document).ready(function(){
 			}
 
 			if (minOnly.checked) {
-				minOnly.value = true;
+				values[3].value = true;
 			}
 			
 			queryString = "?";
