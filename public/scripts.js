@@ -108,8 +108,12 @@ $(document).ready(function(){
 				values[2].value = parseInt(apr.value);
 			}
 
-			if (minOnly.checked) {
+			if (checked) {
+				minOnly.value = true;
 				values[3].value = true;
+			} else {
+				minOnly.value = false;
+				values[3].value = false;
 			}
 			
 			queryString = "?";
