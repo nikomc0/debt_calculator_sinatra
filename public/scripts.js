@@ -108,7 +108,7 @@ $(document).ready(function(){
 				values[2].value = parseInt(apr.value);
 			}
 
-			if (checked) {
+			if (minOnly.checked) {
 				minOnly.value = true;
 				values[3].value = true;
 			} else {
