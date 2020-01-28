@@ -76,10 +76,6 @@ class AccountsController < ApplicationController
     @account = Account.find(params[:id])
 
     changes = params.reject { |k, v| v.blank? || v === "PATCH"}
-    
-    if !params.include?("min_only")
-      changes["min_only"] = false
-    end
 
     if @account.update(changes)
       flash[:success] = "Account was saved."
