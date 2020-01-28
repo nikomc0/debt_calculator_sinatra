@@ -111,15 +111,12 @@ $(document).ready(function(){
 			if (minOnly.checked) {
 				minOnly.value = true;
 				values[3].value = true;
-			} else {
-				minOnly.value = false;
-				values[3].value = false;
 			}
 			
 			queryString = "?";
 			new_values = values.filter(query => query.value != null).map(query => `${query.name}=${query.value}`).join("&");
 			queryString += new_values;
-			
+
 			fetch(url + "/min_payment" + queryString, {
 				headers: {
 					"content-type":"application/json; charset=UTF-8"

@@ -77,6 +77,10 @@ class AccountsController < ApplicationController
 
     changes = params.reject { |k, v| v.blank? || v === "PATCH"}
 
+    if !changes["min_only"]
+      changes["min_only"] = false
+    end
+
     if @account.update(changes)
       flash[:success] = "Account was saved."
       current_user.update_global_variables
