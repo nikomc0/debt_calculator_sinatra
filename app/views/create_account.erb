@@ -1,25 +1,48 @@
-<div class="container">
-	<h1>Create an account</h1>
-	<form method="POST" action="/user">
-		<div class="form-group">
-			<label for="firstName">First Name</label><br>
-			<input type="text" class="form-control" name="user[first_name]"><br>
-			
-			<label for="lastName">last Name</label><br>
-			<input type="text" class="form-control" name="user[last_name]"><br>
-
-			<label for="userName">User Name</label><br>
-			<input type="text" class="form-control" name="user[user_name]"><br>
-
-			<label for="monthlyBudget">Monthly Budget</label><br>
-			<input type="text" class="form-control" placeholder="Amount you want to dedicate to repayment. ex. 2500" name="user[monthly_budget]"><br>
-
-			<label for="userPassword">Password</label><br>
-			<input type="text" class="form-control" name="user[password]"><br>
+<div class="container mt-5">
+	<form method="POST" action="/user" class="mx-auto">
+		<div class="row">
+			<div class="mx-auto">
+				<h3>Create an account</h3>
+			</div>
 		</div>
 
-		<div class="form-group">
-			<input type="submit" class="btn btn-success" value="Create">
+		<div class="form-row">
+			<div class="form-group mx-auto">
+				<div class="input-group mb-3">
+				  <div class="input-group-prepend">
+				    <span class="input-group-text">Name</span>
+				  </div>
+				  <input type="text" aria-label="First name" class="form-control" placeholder="First:" name="user[first_name]">
+				  <input type="text" aria-label="Last name" class="form-control" placeholder="Last:" name="user[last_name]">
+				</div>
+
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text">User Name</span>
+					</div>
+					<input type="text" class="form-control" name="user[user_name]"><br>
+				</div>
+
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text">Monthly Budget</span>
+					</div>
+
+					<input type="text" class="form-control" placeholder="Amount you want to dedicate to repayment. ex. 2500" name="user[monthly_budget]"><br>
+				</div>
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text">Password</span>
+					</div>
+					<input type="password" class="form-control" name="user[password]"><br>
+				</div>
+			</div>
+		</div>
+		
+		<div class="form-row">
+			<div class="form-group mx-auto">
+				<input type="submit" class="btn btn-success btn-sm" value="Create">
+			</div>
 		</div>
 	</form>
 </div>
