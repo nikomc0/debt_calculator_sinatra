@@ -3,30 +3,45 @@ export function run (){
 	var showAnnouncement = true;
 	var readAnnouncement = localStorage.getItem("readAnnouncement");
 
-	if (showAnnouncement && !readAnnouncement){
-		var data = {
-			"read":   true,
-			"date":   setDate(),
-			"expire": setExpiration()
-		};
+	var data = {
+		"read":   true,
+		"date":   setDate(),
+		"expire": setExpiration()
+	};
 
+	if (showAnnouncement && !readAnnouncement){
 		$('<div>', { id : 'overlay' }).appendTo('body');
 		$("#announcement").fadeIn('slow');
 		$("#close").click(function(e){
-			localStorage.setItem("readAnnouncement", JSON.stringify(data));
+			setValues();
 			$('#announcement').remove();
 			$('#overlay').remove();
 			e.preventDefault();
 		});
 	} else {
+		removeOldValues();
 		var now = new Date();
-		var expiration = JSON.parse(readAnnouncement)
+		var expiration = JSON.parse(readAnnouncement);
 
-		expiration = new Date(expiration.expire)
+		expiration = new Date(expiration.expire);
 
 		if (now > expiration) {
 			localStorage.removeItem("readAnnouncement");
 		}
+	}
+
+	function removeOldValues() {
+		debugger;
+		var value = JSON.parse(readAnnouncement);
+		
+		if (value && !value.expire) {
+			localStorage.removeItem("readAnnouncement");
+			setValues();
+		}	
+	}
+
+	function setValues() {
+		localStorage.setItem("readAnnouncement", JSON.stringify(data));
 	}
 
 	function setDate() {

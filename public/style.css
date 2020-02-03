@@ -1,6 +1,33 @@
-body {
+html,body {
 	background-color: #f8f9fa;
 	font-family: 'Roboto', sans-serif;
+	height: 100%;
+}
+
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.full {
+	height: 100%;
+}
+
+
+.login-background {
+	background-image: url("./img/freedom.jpg");
+	background-size: cover;
+}
+
+.login-transparent {
+	background-color: #2c7a99;
+	opacity: 0.6;
+}
+
+.login-transparent p {
+	font-weight: bold;
 }
 
 h6 {
