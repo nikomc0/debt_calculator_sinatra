@@ -31,7 +31,6 @@ export function run (){
 	}
 
 	function removeOldValues() {
-		debugger;
 		var value = JSON.parse(readAnnouncement);
 		
 		if (value && !value.expire) {
