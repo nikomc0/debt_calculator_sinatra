@@ -19,7 +19,7 @@ module FinanceCalculations
 		end
 
 		# Interest Rate / Number of payments per year X Prinicipal = Interest
-		BigDecimal(((apr / 100) / 12) * principal)
+		'%.2f' % BigDecimal(((apr / 100) / 12) * principal)
 	end
 
 	def monthly_interest(apr)
